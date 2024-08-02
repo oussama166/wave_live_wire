@@ -9,7 +9,8 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($data as $item)
+                @forelse ($data->items() as $item)
+
                     <tr class="bg-white border-b dark:border-gray-700 dark:bg-gray-800">
                         @foreach ($extract_key as $key)
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -50,11 +51,9 @@
             </tbody>
         </table>
     </div>
-    <div class="flex items-end justify-end w-full">
-        <div class="w-[15vw] my-5">
-            {{-- @if ($data->hasPages())
-                {{ $data->links() }}
-            @endif --}}
-        </div>
-    </div>
+            {{ $data->links() }}
+{{--    <div class="flex items-end justify-end w-full bg-red-500">--}}
+{{--        --}}{{-- <div class="w-[15vw] my-5">--}}
+{{--        </div> --}}
+{{--    </div>--}}
 </div>

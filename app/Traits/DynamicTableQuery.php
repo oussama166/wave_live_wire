@@ -14,13 +14,14 @@ trait DynamicTableQuery
      * @param string $sortDirection Direction of the sort (asc/desc).
      * @return modelClass::query
      */
-    private function getData(
+    function getData(
         string $modelClass,
-        array $relations = [],
-        array $conditions = [],
+        array  $relations = [],
+        array  $conditions = [],
         string $orderBy = 'created_at',
         string $sortDirection = 'desc',
-    ) {
+    )
+    {
         $query = $modelClass::query();
 
         // Apply conditions
@@ -36,6 +37,9 @@ trait DynamicTableQuery
         // Apply sorting
         $query->orderBy($orderBy, $sortDirection);
 
-        return $query;
+
+
+        // Paginate the results
+        return $query->paginate(4);
     }
 }
