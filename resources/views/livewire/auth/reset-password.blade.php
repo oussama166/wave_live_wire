@@ -14,34 +14,34 @@
                     {{ session('status') }}
                 @endif
             </div>
-            <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" id="restPassword">
+            <form wire:submit.prevent="resetPassword" class="mt-4 space-y-4 lg:mt-5 md:space-y-5" id="restPassword">
                 @csrf
-                <input type="text" name="token" value="{{ $token }}">
+                <input type="hidden" name="token" value="{{ $token }}">
 
                 <x-form-input name="email" id="email" title="Confirm your email"
                     placeholder="name.lastname@mail.com" inputType="email" :isRequire="true" :label-on="true"
-                    :error-on="$errors->hasAny()" :set-focus="true" :set-icon="false">
-                    @error('email')
-                        {{ $message }}
-                    @enderror
-                </x-form-input>
-                <x-form-input name="password" id="password" title="Password" placeholder="᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫"
-                    inputType="password" :isRequire="true" :label-on="true" :error-on="$errors->hasAny()" :set-focus="true"
-                    :set-icon="false">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </x-form-input>
+                    :error-on="$errors->has('email')" :set-focus="true" :set-icon="false" :setDisable="true" />
+
+                <x-form-input name="password" id="password" title="Password" placeholder="********"
+                    inputType="password" :isRequire="true" :label-on="true" :error-on="$errors->has('password')" :set-focus="true"
+                    :set-icon="false" />
+
+                @error('password')
+                    <div class="text-sm text-red-500">{{ $message }}</div>
+                @enderror
+
                 <x-form-input name="password_confirmation" id="password_confirmation" title="Password confirmation"
-                    placeholder="᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫" inputType="password" :isRequire="true" :label-on="true"
-                    :error-on="$errors->hasAny()" :set-focus="true" :set-icon="false">
-                    @error('password_confirmation')
-                        {{ $message }}
-                    @enderror
-                </x-form-input>
+                    placeholder="********" inputType="password" :isRequire="true" :label-on="true" :error-on="$errors->has('password_confirmation')"
+                    :set-focus="true" :set-icon="false" />
+
+                @error('password_confirmation')
+                    <div class="text-sm text-red-500">{{ $message }}</div>
+                @enderror
+
+                <x-form-button type="submit" custom-class="my-5 text-center bg-blue-600 border-2" form="restPassword"
+                    value="Reset password" />
             </form>
-            <x-form-button type="submit" custom-class="my-5 text-center bg-blue-600 border-2" form="restPassword"
-                value="Reset password" />
+
         </div>
     </section>
 </div>

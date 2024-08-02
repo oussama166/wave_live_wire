@@ -72,7 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function contracts(): HasOne
     {
-        return $this->hasOne(COntracts::class, 'id', 'contract_id');
+        return $this->hasOne(Contracts::class, 'id', 'contract_id');
     }
     public function leaves(): HasMany
     {
@@ -83,5 +83,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         $name = $this->name . ' ' . $this->lastName;
         $this->notify(new ResetPassword($name, $token));
+    }
+
+    public function is_admin()
+    {
+        return $this->role === 'admin';
     }
 }

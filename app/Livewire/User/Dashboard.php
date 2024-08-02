@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\User;
 
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -8,9 +8,9 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    #[Title("User dashboard")]
+    #[Title('User Dashboard')]
     public function render()
     {
-        return view('livewire.admin.dashboard');
+        return view('livewire.user.dashboard');
     }
 }

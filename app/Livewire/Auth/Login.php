@@ -3,6 +3,8 @@
 namespace App\Livewire\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -23,20 +25,24 @@ class Login extends Component
             'password' => $this->password,
         ];
         // Attempt to authenticate the user with the provided credentials
-        if (
-            auth()->attempt($credentials)
-        ) {
+        if (auth()->attempt($credentials))
+        {
             // Regenerate the session to prevent session fixation attacks
             $request->session()->regenerate();
 
 
-            $this->dispatch('alert',
+            $this->dispatch
+            ('alert',
             type:"success",
             title : "Your are connected",
             position:"center"
-        );
-            // Redirect to the dashboard
-            return $this->redirectRoute('Admin.Dashboard', navigate: true);
+            );
+
+            if (Auth::user()->role === 'admin') {
+                return $this->redirect("/dashboard");
+            } else {
+                return $this->redirect("/user-dashboard");
+            }
         }
 
         $this->dispatch('alert',

@@ -4,10 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class userType
+class LayoutConfigGuest
 {
     /**
      * Handle an incoming request.
@@ -16,9 +15,7 @@ class userType
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role == 'admin') {
-            return $next($request);
-        }
-        abort(301);
+        config(['livewire.layout' => 'components.layouts.app']);
+        return $next($request);
     }
 }
