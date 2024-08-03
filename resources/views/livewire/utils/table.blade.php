@@ -1,5 +1,5 @@
 <div>
-    <div class="w-full overflow-hidden border rounded-2xl">
+    <div class="w-full overflow-hidden border rounded-2xl" wire:loading.class="opacity-50">
         <table class="w-full text-sm text-left text-gray-500 bg-white border-0 rounded-2xl">
             <thead class="text-base text-gray-700 uppercase border-0 bg-gray-50">
                 <tr class="border rounded-2xl">
@@ -9,13 +9,11 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($data->items() as $item)
-
-                    <tr class="bg-white border-b dark:border-gray-700 dark:bg-gray-800">
-                        @foreach ($extract_key as $key)
+                @forelse ($data as $item)
+                    <tr class="bg-white border-b dark:border-gray-700 dark:bg-gray-800" wire:loading.remove>
+                        @foreach ($extractKey as $key)
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @php
-                                    // Handle different keys dynamically
                                     $value = data_get($item, $key);
                                 @endphp
 
@@ -35,8 +33,7 @@
                                 @elseif ($key == 'vacation_type_id' && isset($item->vacationType))
                                     {{ $item->vacationType->label }}
                                 @elseif ($key == 'Duration')
-                                    {{ detect_holiday(new DateTime($item->start_at), new DateTime($item->end_at)) }}
-                                    Days
+                                    {{ detect_holiday(new DateTime($item->start_at), new DateTime($item->end_at)) }} Days
                                 @else
                                     {{ $value }}
                                 @endif
@@ -44,16 +41,18 @@
                         @endforeach
                     </tr>
                 @empty
-                    <tr>
+                    <tr wire:loading.remove>
                         <td colspan="{{ count($headers) }}" class="py-4 text-center text-gray-500">No data available</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
+        <div wire:loading class="w-full text-center bg-gray-500/30">
+            <span class="py-4 text-center text-white">Loading...</span>
+        </div>
     </div>
-            {{ $data->links() }}
-{{--    <div class="flex items-end justify-end w-full bg-red-500">--}}
-{{--        --}}{{-- <div class="w-[15vw] my-5">--}}
-{{--        </div> --}}
-{{--    </div>--}}
+
+    <div class="flex items-center justify-between w-full mt-4">
+        {{ $data->links() }}
+    </div>
 </div>

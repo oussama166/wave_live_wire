@@ -6,20 +6,13 @@ use App\Traits\DynamicTableQuery;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+
 class Table extends Component
 {
     use WithPagination, DynamicTableQuery;
 
-    public $query;
     public $headers = ['Start date', 'End date', 'Type', 'State', 'Duration'];
-    public $extract_key = [
-        'start_at',
-        'end_at',
-        'vacation_type_id',
-        'leave_status_id',
-        'Duration',
-    ];
-    // Remove this unused "$data" private field.
+    public $extractKey = ['start_at', 'end_at', 'vacation_type_id', 'leave_status_id', 'Duration'];
 
     public $modelClass;
     public $relations = [];
@@ -27,7 +20,6 @@ class Table extends Component
     public $orderBy = 'created_at';
     public $sortDirection = 'desc';
     public $perPage = 10;
-    public $paginate;
 
     public function mount(
         $modelClass,
@@ -37,7 +29,7 @@ class Table extends Component
         $sortDirection = 'desc',
         $perPage = 10,
         $headers = [],
-        $extract_key = []
+        $extractKey = []
     ) {
         $this->modelClass = $modelClass;
         $this->relations = $relations;
@@ -45,25 +37,23 @@ class Table extends Component
         $this->orderBy = $orderBy;
         $this->sortDirection = $sortDirection;
         $this->perPage = $perPage;
-        $this->headers = $headers ?? $this->headers;
-        $this->extract_key = $extract_key ?? $this->extract_key;
+        $this->headers = $headers ?: $this->headers;
+        $this->extractKey = $extractKey ?: $this->extractKey;
+    }
 
-
-        $this->query = $this->getData(
+    public function render()
+    {
+        $data = $this->getData(
             $this->modelClass,
             $this->relations,
             $this->conditions,
             $this->orderBy,
             $this->sortDirection,
+            $this->perPage
         );
-    }
 
-    public function render()
-    {
-        return view('livewire.utils.table',[
-            'data' => $this->query,
+        return view('livewire.utils.table', [
+            'data' => $data,
         ]);
     }
-
-
 }

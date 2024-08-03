@@ -12,6 +12,7 @@ trait DynamicTableQuery
      * @param array $conditions Conditions to apply on the query.
      * @param string $orderBy Column to sort by.
      * @param string $sortDirection Direction of the sort (asc/desc).
+     * @param number $peerPage Number of items per page.
      * @return modelClass::query
      */
     function getData(
@@ -20,6 +21,7 @@ trait DynamicTableQuery
         array  $conditions = [],
         string $orderBy = 'created_at',
         string $sortDirection = 'desc',
+        int   $perPage = 10
     )
     {
         $query = $modelClass::query();
@@ -40,6 +42,6 @@ trait DynamicTableQuery
 
 
         // Paginate the results
-        return $query->paginate(4);
+        return $query->paginate($perPage);
     }
 }
