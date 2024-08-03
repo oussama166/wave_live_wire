@@ -1,7 +1,9 @@
 <div>
+
     <div class="w-full overflow-hidden border rounded-2xl" wire:loading.class="opacity-50">
         <table class="w-full text-sm text-left text-gray-500 bg-white border-0 rounded-2xl">
             <thead class="text-base text-gray-700 uppercase border-0 bg-gray-50">
+                {{-- We need to add sort row  --}}
                 <tr class="border rounded-2xl">
                     @foreach ($headers as $header)
                         <th scope="col" class="px-6 pt-8 pb-3">{{ $header }}</th>

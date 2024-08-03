@@ -36,5 +36,4 @@ document.addEventListener("livewire:init", () => {
 document.addEventListener("livewire:navigated", () => {
     initCalendar();
     initGsap();
-    dropGsap();
 });

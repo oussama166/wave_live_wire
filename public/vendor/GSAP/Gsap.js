@@ -55,9 +55,9 @@ export function initGsap() {
 }
 
 export function dropGsap(open = true, selector = "item") {
-    const submenuItems = document.querySelectorAll(selector);
+    let submenuItems = document.querySelectorAll(selector);
     submenuItems.forEach((sub, index) => {
-        if (sub.classList.contains("hidden") && open) {
+        if (open) {
             sub.classList.add("block");
             sub.classList.remove("hidden");
             gsap.fromTo(
@@ -81,7 +81,7 @@ export function dropGsap(open = true, selector = "item") {
                 duration: 0.5,
                 ease: "power1.inOut",
                 onComplete: () => {
-                    sub.classList.add("none");
+                    sub.classList.add("hidden");
                 },
             });
         }

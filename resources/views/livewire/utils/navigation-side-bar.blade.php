@@ -54,7 +54,7 @@
                     My Vacations List
                 </li>
             </a>
-            <a wire:navigate href="/user-dashboard/vacationRequest/request" id="item" class="z-0 hidden">
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
@@ -81,11 +81,18 @@
         </ul>
     </div>
 
+
     <script>
-        const drop = {{ Str::contains($active, '/vacationRequest') ? 'true' : 'false' }};
         document.addEventListener("DOMContentLoaded", () => {
-            dropGsap(drop, "#item");
+            const drop = {{ Str::contains($active, '/vacationRequest') ? 'true' : 'false' }};
+            window.location.pathname.includes('/vacationRequest') ? dropGsap(drop, "#item") : null;
+        });
+
+        document.addEventListener("livewire:navigated", () => {
+            const drop = {{ Str::contains($active, '/vacationRequest') ? 'true' : 'false' }};
+            window.location.pathname.includes('/vacationRequest') ? dropGsap(drop, "#item") : null;
         });
     </script>
+
 
 </section>

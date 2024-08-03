@@ -6,6 +6,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\User\Dashboard as UserDashboard;
 use App\Livewire\User\Profile;
+use App\Livewire\User\VacationRequest\Request;
 use App\Livewire\User\VacationRequest\VacationsList;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,5 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/vacationRequest/list', VacationsList::class)->name(
         'User.VacationRequest.List'
     );
+    Route::get('/vacationRequest/request',Request::class)->name('User.VacationRequest.Request');
 });
