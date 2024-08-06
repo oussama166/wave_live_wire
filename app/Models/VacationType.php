@@ -19,4 +19,8 @@ class VacationType extends Model
     public function leaves():HasMany{
         return $this->hasMany(LeavesController::class,"vacation_type_id","id");
     }
+
+    public function scopeSearch($query, $search){
+        return $query->where('label', 'like', '%'.$search.'%');
+    }
 }

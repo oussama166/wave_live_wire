@@ -14,7 +14,7 @@
                     {{ session('status') }}
                 @endif
             </div>
-            <form wire:submit.prevent="resetPassword" class="mt-4 space-y-4 lg:mt-5 md:space-y-5" id="restPassword">
+            <form wire:submit="resetPassword" class="mt-4 space-y-4 lg:mt-5 md:space-y-5" id="restPassword">
                 @csrf
                 <input type="hidden" name="token" value="{{ $token }}">
 

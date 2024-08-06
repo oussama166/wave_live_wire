@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <META HTTP-EQUIV="Access-Control-Allow-Origin" CONTENT="http://www.example.org">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/assets/wave.svg') }}" />

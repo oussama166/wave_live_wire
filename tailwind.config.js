@@ -76,6 +76,8 @@ export default {
             },
         },
     },
-    plugins: [],
-    darkMode: "false",
-};
+    plugins: [
+        require('flowbite/plugin')
+    ],
+    darkMode: "false"
+  }

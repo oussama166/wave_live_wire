@@ -39,7 +39,7 @@
                 placeholder="{{ $placeholder }}" value="{{ $value }}"
                 class="{{ $inputStyle }} {{ $inputClass }}" {{ $setDisable ? 'disabled' : '' }}
                 {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                {{ $modelLive ? 'wire:model.live' : 'wire:model' }}="{{ $name }}" />
+                {{ $modelLive ? 'wire:model.live' : 'wire:model.live' }}="{{ $name }}" />
             <div
                 class="absolute inset-y-0 flex items-center pointer-events-none end-0 pe-5 peer-disabled:opacity-50 peer-disabled:pointer-events-none">
                 @if ($inputType == 'password' && $setIcon)

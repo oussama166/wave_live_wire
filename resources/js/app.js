@@ -1,12 +1,17 @@
-import { initCalendar } from "../../public/vendor/Calendar/Calendar";
-import { dropGsap, initGsap } from "../../public/vendor/GSAP/Gsap";
 import "./bootstrap";
 import Swal from "sweetalert2";
+import { initCalendar } from "../../public/vendor/Calendar/Calendar";
+import { InstanceDatePicker } from "../../public/vendor/Flowbite/flowbiteIntsance";
+import { dropGsap, initGsap } from "../../public/vendor/GSAP/Gsap";
+
 
 window.InitGsap = initGsap;
 window.dropGsap = dropGsap;
 
 window.initCalendar = initCalendar;
+
+window.InstanceDatePicker = InstanceDatePicker;
+
 
 document.addEventListener("livewire:init", () => {
     Livewire.on("alert", (event) => {
@@ -34,6 +39,7 @@ document.addEventListener("livewire:init", () => {
 });
 
 document.addEventListener("livewire:navigated", () => {
-    initCalendar();
     initGsap();
+    initCalendar();
+    InstanceDatePicker();
 });

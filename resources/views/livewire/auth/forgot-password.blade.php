@@ -16,7 +16,7 @@
             <h3 class="text-3xl font-semibold leading-3">Reset your password</h3>
         </div>
         <div class="w-full">
-            <form wire:submit.prevent='resetPassword' id="reset" class="mb-5 space-y-5">
+            <form wire:submit='resetPassword' id="reset" class="mb-5 space-y-5">
                 @csrf
                 <x-form-input id="email" name="email" title="Email" placeholder="mail@mail.com" inputType="email"
                     :isRequire="true" :label-on="true" :error-on="$errors->first('email')" :set-focus="true" :value="old('email')">

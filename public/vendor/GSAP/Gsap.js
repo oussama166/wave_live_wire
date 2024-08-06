@@ -80,9 +80,6 @@ export function dropGsap(open = true, selector = "item") {
                 opacity: 0,
                 duration: 0.5,
                 ease: "power1.inOut",
-                onComplete: () => {
-                    sub.classList.add("hidden");
-                },
             });
         }
     });

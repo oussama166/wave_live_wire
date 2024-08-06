@@ -21,7 +21,7 @@
             </div>
         @endif
         <div class="w-full">
-            <form wire:submit.prevent='connect' id="login" class="space-y-5">
+            <form wire:submit='connect' id="login" class="space-y-5">
                 @csrf
                 <x-form-input id="email" name="email" title="Email" placeholder="mail@mail.com" inputType="email"
                     :isRequire="true" :label-on="true" :error-on="$errors->has('email') ? $errors->first('email') : null" :set-focus="true" :value="old('email')" />
