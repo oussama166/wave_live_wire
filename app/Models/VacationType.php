@@ -13,14 +13,16 @@ class VacationType extends Model
 
     protected $table = 'vacation_types';
 
-    protected $guarded = ["id"];
+    protected $guarded = ['id'];
 
-
-    public function leaves():HasMany{
-        return $this->hasMany(LeavesController::class,"vacation_type_id","id");
+    public function leaves(): HasMany
+    {
+        return $this->hasMany(
+            LeavesController::class,
+            'vacation_type_id',
+            'id'
+        );
     }
 
-    public function scopeSearch($query, $search){
-        return $query->where('label', 'like', '%'.$search.'%');
-    }
+
 }

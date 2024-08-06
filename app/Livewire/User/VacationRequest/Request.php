@@ -12,9 +12,8 @@ class Request extends Component
 {
     protected $listeners = [
         'datesSelected' => 'handleDatesSelected',
-        'updateSelect' => 'updateSelect'
+        'updateSelect' => 'updateSelect',
     ];
-
 
     #[Validate('required')]
     public $vacationType;
@@ -24,6 +23,8 @@ class Request extends Component
     public $endAt;
     #[Validate('required')]
     public $description = '';
+
+    public $vacationInfo = null;
 
     public function createVacationRequest(HttpRequest $request)
     {
@@ -40,7 +41,6 @@ class Request extends Component
         ]);
     }
 
-
     public function handleDatesSelected($startAt, $endAt)
     {
         $this->startAt = $startAt;
@@ -48,10 +48,11 @@ class Request extends Component
     }
 
     #[On('updateSelect')]
-    public function updateSelect($value){
+    public function updateSelect($value)
+    {
         $this->vacationType = $value;
+        $this->vacationInfo = VacationType::query()
+            ->where('label', 'like', '%' . $value . '')
+            ->get();
     }
-
-
-
 }
