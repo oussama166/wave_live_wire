@@ -15,14 +15,20 @@ window.InstanceDatePicker = InstanceDatePicker;
 
 document.addEventListener("livewire:init", () => {
     Livewire.on("alert", (event) => {
-        Swal.fire({
-            position: "center",
+        const swalOptions = {
+            position: 'center',
             icon: event.type,
             title: event.title,
             text: event.text,
-            showConfirmButton: false,
-            timer: 1500,
-        });
+            showConfirmButton: event.confirm ?? false,
+        };
+
+        if(event.confirSet){
+            swalOptions.timer = event.timer ?? 1500;
+        }
+
+
+        Swal.fire(swalOptions);
     });
 
     Livewire.on("toast", (event) => {

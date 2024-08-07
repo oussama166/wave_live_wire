@@ -8,7 +8,7 @@
 
             {{-- Vacation type dropdown and info section --}}
             <div
-                class="flex flex-wrap items-center justify-between w-full gap-5"
+                    class="flex flex-wrap items-center justify-between w-full gap-5"
             >
                 <livewire:utils.dropdown label="List of vacations" :data="$vacationTypes" :wire:key="$vacationType"/>
 
@@ -18,8 +18,8 @@
                 >
 
                     <x-phosphor-x-circle-bold
-                        class="absolute w-5 cursor-pointer top-4 right-4"
-                        @click="selectedVacationType = null;"
+                            class="absolute w-5 cursor-pointer top-4 right-4"
+                            @click="selectedVacationType = null;"
                     />
 
                     <input type="hidden" name="vacation_type_id" :value="idVacation"/>
@@ -34,9 +34,9 @@
 
                                 <div class="inline-flex  gap-1 items-center">
                                 <span x-show="selectedVacationType.isPaid"><x-tabler-currency-dollar
-                                        class="text-green-600"/></span>
+                                            class="text-green-600"/></span>
                                     <span x-show="!selectedVacationType.isPaid"><x-tabler-currency-dollar-off
-                                            class="text-danger-600"/></span>
+                                                class="text-danger-600"/></span>
                                 </div>
 
                                 <div class="inline-flex  gap-1 items-center" x-show="selectedVacationType.isPaid">
@@ -56,13 +56,15 @@
 
 
                 <x-form-input
-                    name="description"
-                    id="description"
-                    title="Description"
-                    placeholder="Add the reason why you want this vacation"
-                    input-type="text-area"
-                    :is-require="true"
-                    form-style="max-w-lg w-full"/>
+                        name="description"
+                        id="description"
+                        title="Description"
+                        placeholder="Add the reason why you want this vacation"
+                        input-type="text-area"
+                        form-style="max-w-lg w-full"
+                        :is-require="true"
+
+                />
             </div>
             <x-form-button type="submit" value="Submit" customClass="my-5"/>
         </form>
