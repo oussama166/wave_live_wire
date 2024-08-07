@@ -1,8 +1,12 @@
 <?php
+
 namespace App\Livewire\User\VacationRequest;
 
+use App\Models\LeaveStatus;
 use App\Models\VacationType;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -26,10 +30,21 @@ class Request extends Component
 
     public $vacationInfo = null;
 
+
     public function createVacationRequest(HttpRequest $request)
     {
-        // Process the HTTP request here
+        // validate the start ,end ,type and description
+
+        // Check if he has the enough balance
+
+
         dd($request->all());
+    }
+
+
+    public function mount()
+    {
+        $this->vacationTypes = VacationType::all();
     }
 
     #[Title('Vacation Request')]
@@ -47,12 +62,21 @@ class Request extends Component
         $this->endAt = $endAt;
     }
 
-    #[On('updateSelect')]
-    public function updateSelect($value)
+    public function updatedVacationType($value)
     {
-        $this->vacationType = $value;
-        $this->vacationInfo = VacationType::query()
-            ->where('label', 'like', '%' . $value . '')
-            ->get();
+        $this->vacationInfo = VacationType::query()->where('label', $value)->first()->getOriginal();
+
+        /*  Expect data
+
+              "id" => 6
+              "label" => "Congé Sans Solde"
+              "description" => "Congé pris sans rémunération."
+              "isPaid" => 0
+              "duration" => 0
+              "reduction" => 100
+              "backgroundColor" => "#9E9E9E"
+          */
     }
+
+
 }
