@@ -33,6 +33,6 @@ class HeaderLogin extends Component
         // logout logic
         auth()->logout();
         $this->dispatch('toast', type : 'success', message : 'Logout successfully!');
-        return $this->redirect("/");
+        return redirect("/");
     }
 }

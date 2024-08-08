@@ -66,13 +66,13 @@
                 </li>
             </a>
 
-            <a wire:navigate href="/user-dashboard/home">
+            <a wire:navigate href="/settings">
                 <li class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-[#1c5daf] aria-checked:text-white
                 "
-                    aria-checked="{{ $active == '/user-dashboard/settings' ? 'true' : 'false' }}">
+                    aria-checked="{{ $active == '/settings' ? 'true' : 'false' }}">
 
                     <x-letsicon-setting-line class="w-7" />
                     Settings

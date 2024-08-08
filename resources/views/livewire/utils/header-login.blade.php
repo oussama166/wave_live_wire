@@ -1,5 +1,7 @@
-<section class="max-w-[77vw] w-full max-h-[80px] h-full flex justify-between mt-10 px-10  fixed top-10 z-10"
-    id="header">
+<section
+    class="max-w-[77vw] w-full max-h-[80px] h-full flex justify-between mt-10 px-10  fixed top-10 z-10"
+    id="header"
+>
     {{--  THIS IS FOR THE   --}}
     <div id="header-info" class="flex flex-col gap-1 py-2">
         <div class="text-sm font-normal tracking-wide text-wave-disable">
@@ -15,7 +17,7 @@
     <div id="header-user" class="flex items-center gap-5">
         {{-- > Notification --}}
         <div class="relative p-3 bg-white rounded-full cursor-pointer">
-            <x-phosphor-bell-simple-fill class="w-5 text-[#aab4d4]" />
+            <x-phosphor-bell-simple-fill class="w-5 text-[#aab4d4]"/>
             <span class="absolute w-2 h-2 bg-red-600 rounded-full top-2 right-2"></span>
         </div>
         {{-- Notification < --}}
@@ -31,7 +33,7 @@
         <form method="POST" wire:submit='logout'>
             @csrf
             <button type="submit" class="flex items-center justify-center p-3 bg-white rounded-full cursor-pointer">
-                <x-tabler-logout class="w-5 text-[#aab4d4] text-lg" />
+                <x-tabler-logout class="w-5 text-[#aab4d4] text-lg"/>
             </button>
         </form>
     </div>

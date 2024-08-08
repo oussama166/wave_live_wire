@@ -4,13 +4,10 @@ namespace App\Livewire\User\VacationRequest;
 
 use App\Models\Leaves;
 use App\Models\LeaveStatus;
-use App\Models\User;
 use App\Models\VacationType;
+use App\Notifications\CongeInfo;
 use DateTime;
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Log;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -36,66 +33,71 @@ class Request extends Component
     public $vacationInfo = null;
 
 
-    public function createVacationRequest(HttpRequest $request)
+    public function createVacationRequest()
     {
         // Validate the request data
         $this->validate();
 
         // Calculate the amount of days for the vacation request
-        $amount = detect_holiday(new DateTime($request->startAt), new DateTime($request->endAt));
+        $amount = detect_holiday(new DateTime($this->startAt), new DateTime($this->endAt));
 
+        // Get the user instance
         $user = auth()->user();
 
+        // Check if the user has enough balance
         if ($user->balance >= $amount) {
-            // Dispatch info alert
-            $this->dispatch('alert',
-                type: 'info',
-                title: 'Vacation Time',
-                text: 'The time you will spend is ' . $amount . ' days off the holiday and weekend',
-                confirm: true,
-                confirmSet:false,
-            );
-
             try {
-
+                \DB::beginTransaction();
 
                 // Create the vacation request
-                Leaves::query()->create([
+                $leave = Leaves::query()->create([
                     'start_at' => $this->startAt,
                     'end_at' => $this->endAt,
                     'description' => $this->description,
                     'vacation_type_id' => $this->vacationInfo["id"],
-                    'user_id' => auth()->user()->id,
-                    'leave_status_id' => 1
+                    'user_id' => $user->id,
+                    'leave_status_id' => LeaveStatus::query()->where('label','Like','Pending')->first()->id,
                 ]);
 
-                // Update the user's balance
-                auth()->user()->update([
-                    'balance' => \DB::raw('balance - ' . $amount)
-                ]);
+                if ($leave) {
+                    // Update the user's balance
+                    $user->update([
+                        'balance' => \DB::raw('balance - ' . $amount)
+                    ]);
 
-                // Dispatch success alert
-                $this->dispatch('alert',
-                    type: 'success',
-                    title: 'Vacation Time',
-                    text: 'Your vacation request has been created successfully',
-                    confirmSet:true,
-                    timer:3500
+                    // Commit the transaction
+                    \DB::commit();
 
-                );
+                    // Dispatch success alert
+                    $this->dispatch('alert',
+                        type: 'success',
+                        title: 'Vacation Time',
+                        text: 'Your vacation request has been created successfully',
+                        confirmSet: true,
+                        timer: 3500
+                    );
+                    $user->notify(new CongeInfo('Vacation request',$leave->getOriginal()));
+                    // Redirect to the user dashboard
+                    // $this->redirectRoute('User.Dashboard', navigate: true);
+                    redirect()->route('User.Dashboard');
 
-                // Redirect to the user dashboard
-                $this->redirect(route('User.Dashboard'), navigate: true);
 
+
+                } else {
+                    throw new \Exception('Failed to create vacation request.');
+                }
             } catch (\Exception $exception) {
+                // Rollback the transaction if something goes wrong
+                \DB::rollBack();
+
                 // Log error and dispatch error alert
                 Log::error('Failed to create vacation request: ' . $exception->getMessage());
                 $this->dispatch('alert',
                     type: 'error',
                     title: 'Vacation Time',
                     text: 'Something went wrong while creating your vacation request',
-                    confirm:true,
-                    confirmSet:false
+                    confirm: true,
+                    confirmSet: false
                 );
             }
         } else {
@@ -105,7 +107,7 @@ class Request extends Component
                 title: 'Vacation Time',
                 text: 'The requested time off exceeds your available balance.',
                 confirm: true,
-                confirmSet:false,
+                confirmSet: false,
                 timer: 3500
             );
         }

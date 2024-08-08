@@ -6,6 +6,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\ResetPassword;
 use App\Livewire\User\Dashboard as UserDashboard;
 use App\Livewire\User\Profile;
+use App\Livewire\User\Settings;
 use App\Livewire\User\VacationRequest\Request;
 use App\Livewire\User\VacationRequest\VacationsList;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user-dashboard', UserDashboard::class)->name('User.Dashboard');
     Route::get('/profile', Profile::class)->name('User.Profile');
+    Route::get('/settings',Settings::class)->name('User.Settings');
+
+
     Route::get('/vacationRequest/list', VacationsList::class)->name(
         'User.VacationRequest.List'
     );
