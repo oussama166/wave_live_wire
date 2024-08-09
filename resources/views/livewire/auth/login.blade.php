@@ -23,13 +23,33 @@
         <div class="w-full">
             <form wire:submit='connect' id="login" class="space-y-5">
                 @csrf
-                <x-form-input id="email" name="email" title="Email" placeholder="mail@mail.com" inputType="email"
-                    :isRequire="true" :label-on="true" :error-on="$errors->has('email') ? $errors->first('email') : null" :set-focus="true" :value="old('email')" />
+                <x-form-input
+                    id="email"
+                    name="email"
+                    title="Email"
+                    placeholder="mail@mail.com"
+                    inputType="email"
+                    :isRequire="true"
+                    :label-on="true"
+                    :error-on="$errors->has('email') ? $errors->first('email') : null"
+                    :set-focus="true"
+                    :set-left-icon="true"
+                    :value="old('email')" />
 
 
-                <x-form-input id="password" name="password" title="Password" placeholder="᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫"
-                    inputType="password" :isRequire="true" :label-on="true" :error-on="$errors->has('password') ? $errors->first('password') : null" :set-focus="false"
-                    :value="old('password')" />
+                <x-form-input
+                    id="password"
+                    name="password"
+                    title="Password"
+                    placeholder="᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫᛫"
+                    inputType="password"
+                    :isRequire="true"
+                    :label-on="true"
+                    :error-on="$errors->has('password') ? $errors->first('password') : null"
+                    :set-focus="false"
+                    :set-left-icon="true"
+                    :value="old('password')"
+                />
 
                 <div class="max-w-lg py-5 text-right">
                     <a href="/forgot-password"

@@ -38,7 +38,7 @@ class UserFactory extends Factory
             'role' => $this->faker->randomElement(['admin', 'user']),
             'birth_date' => $this->faker->date(),
             'hiring_date' => $this->faker->date(),
-            'password' => hash::make("password12345"),
+            'password' => "password12345",
             'sexe' => $this->faker->randomElement(['male', 'female']),
             'phone' => $this->faker->unique()->phoneNumber(),
             'adresse' => $this->faker->unique()->address(),

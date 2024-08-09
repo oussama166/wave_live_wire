@@ -17,11 +17,14 @@
     ];
 @endphp
 @if ($tag == 'button')
-    <button type="{{ $type }}" class="{{ $customClass }} {{ $classValueVariants[$buttonType] }}"
-        {{ $attributes }}>
+    <button
+        type="{{ $type }}"
+        class="{{ $customClass }} {{ $classValueVariants[$buttonType] }}"
+        {{ $attributes }}
+
+    >
         {{ $value }}
         {{ $slot }}
-
     </button>
 @endif
 @if ($tag == 'link')

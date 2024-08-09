@@ -32,12 +32,12 @@ document.addEventListener("livewire:init", () => {
     });
 
     Livewire.on("toast", (event) => {
-        console.log(event);
         Swal.fire({
             toast: true,
             position: "top-end",
             icon: event.type,
-            title: event.message,
+            title: event.title,
+            text: event.text,
             showConfirmButton: false,
             timer: 3500,
         });

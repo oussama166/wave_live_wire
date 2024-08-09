@@ -89,4 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->role === 'admin';
     }
+
+
+
 }
