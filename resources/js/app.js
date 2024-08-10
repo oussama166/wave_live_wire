@@ -3,7 +3,10 @@ import Swal from "sweetalert2";
 import { initCalendar } from "../../public/vendor/Calendar/Calendar";
 import { InstanceDatePicker } from "../../public/vendor/Flowbite/flowbiteIntsance";
 import { dropGsap, initGsap } from "../../public/vendor/GSAP/Gsap";
+import {initializeChart} from "../../public/vendor/ChartJs/Chart.js";
 
+
+// Register
 
 window.InitGsap = initGsap;
 window.dropGsap = dropGsap;
@@ -12,7 +15,11 @@ window.initCalendar = initCalendar;
 
 window.InstanceDatePicker = InstanceDatePicker;
 
+window.initializeChart = initializeChart;
 
+
+
+// Live Wire listner
 document.addEventListener("livewire:init", () => {
     Livewire.on("alert", (event) => {
         const swalOptions = {
@@ -44,6 +51,8 @@ document.addEventListener("livewire:init", () => {
     });
 });
 
+
+// Handling the navigated event
 document.addEventListener("livewire:navigated", () => {
     initGsap();
     initCalendar();

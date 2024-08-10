@@ -39,7 +39,7 @@ class Login extends Component
             );
 
             if (Auth::user()->role === 'admin') {
-                return $this->redirect("/dashboard");
+                return $this->redirect("/admin/dashboard");
             } else {
                 return $this->redirect("/user-dashboard");
             }

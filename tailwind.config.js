@@ -12,6 +12,7 @@ export default {
             fontFamily: {
                 Roboto: ["Roboto", "sans-serif"],
                 Inter: ["Inter", "sans-serif"],
+                Mulish:["Mulish", "sans-serif"],
             },
             colors: {
                 wave: {

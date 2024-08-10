@@ -67,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function position(): HasOne
     {
-        return $this->hasOne(Position::class, 'id', 'postion_id');
+        return $this->hasOne(Position::class, 'id', 'position_id');
     }
 
     public function contracts(): HasOne

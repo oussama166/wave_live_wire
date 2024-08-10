@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\Profile as AdminProfile;
+use App\Livewire\Admin\Profiles as AdminProfiles;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\ResetPassword;
@@ -10,6 +12,7 @@ use App\Livewire\User\Settings;
 use App\Livewire\User\VacationRequest\Request;
 use App\Livewire\User\VacationRequest\VacationsList;
 use Illuminate\Support\Facades\Route;
+
 
 // THIS IS THE ROUTES FOR THE AUTHENTICATION PAGES IS ACCESSIBLE FOR GUEST WITHOUT AUTHENTICATION
 Route::middleware(['layout-guest', 'guest'])->group(function () {
@@ -24,10 +27,16 @@ Route::middleware(['layout-guest', 'guest'])->group(function () {
     );
 });
 
+
+
 // THIS IS THE ROUTES FOR THE AUTHENTICATION PAGES IS ACCESSIBLE FOR GUEST WITH AUTHENTICATION WITH THE ROLE ADMIN
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', AdminDashboard::class)->name('Admin.Dashboard');
+    Route::get('/admin/dashboard', AdminDashboard::class)->name('Admin.Dashboard');
+    Route::get('/admin/profile',AdminProfile::class)->name('Admin.Profile');
+    Route::get('/admin/users',AdminProfiles::class)->name('Admin.Profiles');
 });
+
+
 
 // THIS IS THE ROUTES FOR THE AUTHENTICATION PAGES IS ACCESSIBLE FOR GUEST WITH AUTHENTICATION WITH THE ROLE USER
 Route::middleware(['auth', 'role:user'])->group(function () {
