@@ -15,11 +15,7 @@ class Edit extends Component
     public $user;
 
     #[Validate('required')]
-    public $sex;
-    #[Validate('required')]
     public $selectArea;
-    #[Validate('required')]
-    public $role;
     #[Validate('required')]
     public $experience_level;
     #[Validate('required')]
@@ -49,8 +45,8 @@ class Edit extends Component
             ->find($this->form->id);
 
         // Update the init information from the user information array
-        $this->role = $this->user['role'];
-        $this->sex = $this->user['sexe'];
+        $this->form->role = $this->user['role'];
+        $this->form->sex = $this->user['sexe'];
 
         $this->experience_level = $this->user['experienceLevel']->label;
         $this->family_status = $this->user['familyStatus']->label;
@@ -78,18 +74,34 @@ class Edit extends Component
 
     public function changeBasicInformation()
     {
-        $this->form->save();
+        try {
+            $this->form->save();
+            $this->dispatch(
+                "toast",
+                type: "success",
+                title: "User information was successfully changed"
+            );
+            $this->redirect(route('Admin.edit', $this->form->id));
+        } catch (\Exception $e) {
+            $this->dispatch(
+                "toast",
+                type: "warning",
+                title: $e->getMessage()
+            );
+        }
+
     }
 
-    public function updated($props, $value):void
+    public function updated($props, $value): void
     {
 
-        if($props == "form.balance"){
+        if ($props == "form.balance") {
             $this->form->balance = $value;
             $this->form->commentOn = $this->form->balance != $this->previous_balance;
         }
 
     }
+
     public function updatedRole($value)
     {
         $this->role = $value;

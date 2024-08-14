@@ -2,10 +2,13 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\ExceptionlLeaveBalance;
 use App\Models\ExperienceLevels;
 use App\Models\FamilyStatus;
 use App\Models\Nationality;
 use App\Models\Position;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 use Illuminate\Support\Facades\Log;
@@ -120,5 +123,33 @@ class userEdit extends Form
         ]);
 
 
+        try {
+            User::query()->where("id",$this->id)->update(
+                [
+
+                    'name' => $this->name,
+                    'lastname' => $this->lastname,
+                    'role' => $this->role,
+                    'email' => $this->email,
+                    'cin' => $this->cin,
+                    'cnss' => $this->cnss,
+                    'sexe' => $this->sexe,
+                    'birth_date' => $this->birth_date,
+                    'hiring_date' => $this->hiring_date,
+                    'phone' => $this->phone,
+                    'adresse' => $this->adresse,
+                    'balance' => $this->balance,
+                ]
+            );
+
+            ExceptionlLeaveBalance::query()->create([
+                "user_id" => $this->id,
+                "admin_id" => Auth::id(),
+                "days_added" => $this->balance - $this->previous_balance,
+                "raison" => $this->comment
+            ]);
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+        }
     }
 }

@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "mansoor/blade-lets-icons": "^1.0",
+        "owen-it/laravel-auditing": "^13.6",
         "owenvoke/blade-fontawesome": "^2.6",
         "realrashid/sweet-alert": "^7.2",
         "ryangjchandler/blade-tabler-icons": "^2.3",

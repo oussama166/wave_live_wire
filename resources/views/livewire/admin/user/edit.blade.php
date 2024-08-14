@@ -65,7 +65,7 @@
                                 form-style="flex-shrink-0 max-w-lg w-full " :set-disable="false" />
 
                             <livewire:utils.dropdown label="Role" :data="$this->form->getRole" selectedItem="{{ $user['role'] }}"
-                                index="label" select-area="role" :wire:key="$selectArea" />
+                                index="label" select-area="form.role" :wire:key="$selectArea" />
 
                             <x-form-input name="form.email" id="form.email" title="Email"
                                 placeholder="Insert the email of the employee " input-type="email"
@@ -82,7 +82,7 @@
                                 form-style="flex-shrink-0 max-w-lg w-full " :set-disable="false" />
 
                             <livewire:utils.dropdown label="Sex" :data="$this->form->getSex"
-                                selectedItem="{{ $user['sexe'] }}" select-area="sex" :wire:key="$selectArea" />
+                                selectedItem="{{ $user['sexe'] }}" select-area="form.sexe" :wire:key="$selectArea" />
 
                             <x-form-input name="form.birth_date" id="form.birth_date" title="Birth date"
                                 placeholder="Insert the 5birth date of the employee " input-type="datePicker"

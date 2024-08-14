@@ -59,7 +59,7 @@ return new class extends Migration
             $table->string("phone");
             $table->longText("adresse");
             $table->decimal("salary")->default(3000);
-            $table->float("balance")->default(0);
+            $table->float("balance")->default(1.5);
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
