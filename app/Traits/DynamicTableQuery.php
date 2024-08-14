@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
+
 trait DynamicTableQuery
 {
     /**
@@ -21,7 +23,8 @@ trait DynamicTableQuery
         array  $conditions = [],
         string $orderBy = 'created_at',
         string $sortDirection = 'desc',
-        int   $perPage = 10
+        int   $perPage = 10,
+        ?string $searchText = null
     )
     {
         $query = $modelClass::query();
@@ -36,8 +39,24 @@ trait DynamicTableQuery
             $query->with($relations);
         }
 
+        // Apply search filter using the scope if defined
+        if (method_exists($modelClass, 'scopeSearch')) {
+            $query->search($searchText);
+        } else {
+            if ($searchText) {
+                $query->where(function (Builder $query) use ($searchText) {
+                    $query->where('name', 'like', "%{$searchText}%")
+                          ->orWhere('lastname', 'like', "%{$searchText}%")
+                          ->orWhere('phone', 'like', "%{$searchText}%");
+                });
+            }
+        }
+
+
         // Apply sorting
         $query->orderBy($orderBy, $sortDirection);
+
+
 
 
 

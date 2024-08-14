@@ -14,6 +14,7 @@ class DataTable extends Component
     public $extractKey = ['start_at', 'end_at', 'vacation_type_id', 'leave_status_id', 'Duration'];
     public $actionOn = false;
     public $key;
+    public $search='';
 
 
     public $modelClass;
@@ -21,7 +22,7 @@ class DataTable extends Component
     public $conditions = [];
     public $orderBy = 'created_at';
     public $sortDirection = 'desc';
-    public $perPage = "5";
+    public $perPage = 5;
 
     public function mount(
         $modelClass,
@@ -29,10 +30,11 @@ class DataTable extends Component
         $conditions = [],
         $orderBy = 'created_at',
         $sortDirection = 'desc',
-        $perPage = 10,
+        $perPage = 5,
         $headers = [],
         $extractKey = [],
-        $actionOn = false
+        $actionOn = false,
+        $search = '',
     )
     {
         $this->modelClass = $modelClass;
@@ -44,6 +46,7 @@ class DataTable extends Component
         $this->headers = $headers ?: $this->headers;
         $this->extractKey = $extractKey ?: $this->extractKey;
         $this->actionOn = $actionOn;
+        $this->search = $search;
     }
 
     public function render()
@@ -55,12 +58,21 @@ class DataTable extends Component
             $this->orderBy,
             $this->sortDirection,
             $this->perPage,
+            $this->search
         );
 
         return view('livewire.utils.data-table', compact('data'));
     }
 
-    public function updatedPeerPage($value)
+    // For tracking the search input update
+    public function updatedSearch($value){}
+
+    // This for reset the search input
+    public function resetSearch()
     {
+        $this->search = '';
     }
+
+
+
 }

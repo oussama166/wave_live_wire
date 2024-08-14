@@ -16,11 +16,11 @@
                 <livewire:utils.dropdown
                     label="List of vacations"
                     :data="$vacationTypes"
-                    :wire:key="$vacationType"
+                    :wire:key="$selectArea"
                 />
 
-                <div class="relative flex-shrink-0 order-last w-full max-w-lg p-3 border rounded-lg bg-gray-50 px-5"
-                     x-data="{ selectedVacationType: @entangle('vacationInfo') }"
+                <div class="relative flex-shrink-0 order-last w-full max-w-lg p-3 px-5 border rounded-lg bg-gray-50"
+                     x-data="{ selectedVacationType: @entangle('selectArea') }"
                      x-show="selectedVacationType != null"
                 >
 
@@ -35,25 +35,25 @@
                         <p class="text-center" x-text="selectedVacationType.description"></p>
 
 
-                        <div class="w-full flex flex-row gap-5 flex-nowrap justify-end px-5">
+                        <div class="flex flex-row justify-end w-full gap-5 px-5 flex-nowrap">
                             {{-- left side--}}
-                            <div class="w-1/2 flex items-center">
+                            <div class="flex items-center w-1/2">
 
-                                <div class="inline-flex  gap-1 items-center">
+                                <div class="inline-flex items-center gap-1">
                                 <span x-show="selectedVacationType.isPaid"><x-tabler-currency-dollar
                                         class="text-green-600"/></span>
                                     <span x-show="!selectedVacationType.isPaid"><x-tabler-currency-dollar-off
                                             class="text-danger-600"/></span>
                                 </div>
 
-                                <div class="inline-flex  gap-1 items-center" x-show="selectedVacationType.isPaid">
+                                <div class="inline-flex items-center gap-1" x-show="selectedVacationType.isPaid">
                                     <span x-text="selectedVacationType.reduction"></span>%
                                 </div>
 
                             </div>
 
                             {{-- Right side--}}
-                            <div class="inline-flex gap-1 items-end w-1/2">
+                            <div class="inline-flex items-end w-1/2 gap-1">
                                 <x-tabler-calendar-share/> {{" "}}<span x-text="selectedVacationType.duration"></span>
                                 max-days
                             </div>

@@ -33,7 +33,7 @@
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-[#1c5daf] aria-checked:text-white
                 "
-                    aria-checked="{{ $active == '/admin/users' ? 'true' : 'false' }}">
+                    aria-checked="{{ ($active == '/admin/users' || Str::contains($active, '/admin/users')) ? 'true' : 'false' }}">
                     <x-heroicon-o-user-group class="w-7"/>
                     Profiles
                 </li>

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -88,6 +89,28 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function is_admin()
     {
         return $this->role === 'admin';
+    }
+
+
+    public function scopeSearch(Builder $query, ?string $searchText)
+    {
+        $searchText = "%{$searchText}%";
+            $query->where(function (Builder $query) use ($searchText) {
+                $query->where('name', 'like', $searchText)
+                      ->orWhere('lastname', 'like', $searchText)
+                      ->orWhere('phone', 'like', $searchText)
+                      ->orWhere('email', 'like', $searchText)
+                      ->orWhere('role','like', $searchText)
+                      ->orWhereHas('experienceLevel', function (Builder $query) use ($searchText) {
+                          $query->where('label', 'like', $searchText);
+                      })
+                      ->orWhereHas('familyStatus', function (Builder $query) use ($searchText) {
+                          $query->where('label', 'like', $searchText);
+                      })
+                      ->orWhereHas('contracts',function(Builder $query) use ($searchText){
+                          $query->where('label','like',$searchText);
+                      });
+            });
     }
 
 

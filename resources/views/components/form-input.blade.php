@@ -15,6 +15,9 @@
     'modelLive' => false,
     'formStyle' => '',
     'inputStyle' => '',
+    'subMax' => 0,
+    'subMin' => 0
+
 ])
 
 @php
@@ -40,9 +43,9 @@
                 <div
                     class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     @if ($inputType == 'password')
-                        <x-heroicon-c-lock-closed class="h-5 w-5 text-gray-500 dark:text-neutral-500"/>
+                        <x-heroicon-c-lock-closed class="w-5 h-5 text-gray-500 dark:text-neutral-500"/>
                     @elseif($inputType == 'email')
-                        <x-heroicon-s-user class="h-5 w-5 text-gray-500 dark:text-neutral-500"/>
+                        <x-heroicon-s-user class="w-5 h-5 text-gray-500 dark:text-neutral-500"/>
                     @endif
                 </div>
             @endif
@@ -54,11 +57,29 @@
                     name="{{ $name }}"
                     placeholder="{{ $placeholder }}" value="{{ $value }}"
                     class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}"
-                    {{ $setDisable ? 'disabled' : '' }}
-                    {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                    {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"
-                    wire:key="{{ $id }}"
+                {{ $setDisable ? 'disabled' : '' }}
+                {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
+                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"
+                wire:key="{{ $id }}"
                 />
+            @elseif($inputType == "datePicker")
+                <input id="{{$name}}" name="{{ $name }}" type="text"
+                       class="block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                       placeholder="{{$placeholder}}"
+                       wire:model.live="{{$name}}"
+                       value="{{ $value }}"
+                       wire:key="{{ $id }}"
+                />
+
+                <script>
+                    window.addEventListener("DOMContentLoaded", () => {
+                        InstanceDate(
+                            "{{$name}}",
+                            {{$subMin}},
+                            {{$subMax}}
+                        )
+                    })
+                </script>
             @else
                 <input
                     type="{{ $inputType }}"
@@ -66,10 +87,10 @@
                     name="{{ $name }}"
                     placeholder="{{ $placeholder }}" value="{{ $value }}"
                     class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}"
-                    {{ $setDisable ? 'disabled' : '' }}
-                    {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                    {{$modelLive ? 'wire:model.live' : 'wire:model'}}="{{ $name }}"
-                    wire:key="{{ $id }}"
+                {{ $setDisable ? 'disabled' : '' }}
+                {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
+                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"
+                wire:key="{{ $id }}"
                 />
             @endif
 
@@ -77,17 +98,18 @@
 
             @if ($inputType == 'password')
                 <button type="button"
-                        class="absolute inset-y-1/2 -translate-y-1/2 right-5 flex items-center justify-center w-8 h-8 bg-transparent hover:bg-gray-300 rounded-full p-1 transition-colors"
+                        class="absolute flex items-center justify-center w-8 h-8 p-1 transition-colors -translate-y-1/2 bg-transparent rounded-full inset-y-1/2 right-5 hover:bg-gray-300"
                         @click="showPassword = !showPassword">
                     <template x-if="showPassword">
-                        <x-heroicon-s-eye class="h-6 w-6 text-gray-500 dark:text-neutral-500"/>
+                        <x-heroicon-s-eye class="w-6 h-6 text-gray-500 dark:text-neutral-500"/>
                     </template>
                     <template x-if="!showPassword">
-                        <x-heroicon-o-eye-slash class="h-6 w-6 text-gray-500 dark:text-neutral-500"/>
+                        <x-heroicon-o-eye-slash class="w-6 h-6 text-gray-500 dark:text-neutral-500"/>
                     </template>
                 </button>
             @endif
         </div>
-        @error($name) <span class="text-sm italic text-danger-700 my-4">{{ $message }}</span> @enderror
+        @error($name) <span class="my-4 text-sm italic text-danger-700">{{ $message }}</span> @enderror
     </div>
+
 </div>

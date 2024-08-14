@@ -1,7 +1,7 @@
 import "./bootstrap";
 import Swal from "sweetalert2";
 import { initCalendar } from "../../public/vendor/Calendar/Calendar";
-import { InstanceDatePicker } from "../../public/vendor/Flowbite/flowbiteIntsance";
+import { InstanceDatePicker ,InstanceDate} from "../../public/vendor/Flowbite/flowbiteIntsance";
 import { dropGsap, initGsap } from "../../public/vendor/GSAP/Gsap";
 import {initializeChart} from "../../public/vendor/ChartJs/Chart.js";
 
@@ -14,6 +14,7 @@ window.dropGsap = dropGsap;
 window.initCalendar = initCalendar;
 
 window.InstanceDatePicker = InstanceDatePicker;
+window.InstanceDate = InstanceDate;
 
 window.initializeChart = initializeChart;
 
@@ -57,4 +58,9 @@ document.addEventListener("livewire:navigated", () => {
     initGsap();
     initCalendar();
     InstanceDatePicker();
+});
+Livewire.hook('element.initialized',() => {
+    window.Alpine.discoverUninitializedComponents((el) => {
+        window.Alpine.initializeComponent(el);
+    })
 });

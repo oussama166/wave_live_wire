@@ -20,7 +20,7 @@ class Request extends Component
     ];
 
     #[Validate('required', message: "Vacation Type is require filed")]
-    public $vacationType;
+    public $selectArea;
     #[Validate('required', message: "Start at is require filed")]
     public $startAt;
     #[Validate('required', message: "End at is require filed")]
@@ -116,7 +116,13 @@ class Request extends Component
 
     public function mount()
     {
-        $this->vacationTypes = VacationType::all();
+
+        $this->vacationTypes = VacationType::all()->map(function($vacationType) {
+            return [
+                'id' => (string) $vacationType->id, // Ensure ID is a string
+                'label' => $vacationType->label,    // Adjust according to your attribute
+            ];
+        })->toArray();
     }
 
     #[Title('Vacation Request')]
@@ -134,9 +140,9 @@ class Request extends Component
         $this->endAt = $endAt;
     }
 
-    public function updatedVacationType($value)
+    public function updatedSelectArea($value)
     {
-        $this->vacationInfo = $this->vacationTypes->where('label', $value)->first()->getOriginal();
+        $this->selectArea = $this->vacationTypes->where('label', $value)->first()->getOriginal();
 
     }
 
