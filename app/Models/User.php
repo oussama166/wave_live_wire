@@ -7,17 +7,15 @@ use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,Auditable
+
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasFactory, Notifiable;
-    use \OwenIt\Auditing\Auditable;
 
     protected $table = 'users';
 
@@ -34,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
      * @var array<int, string>
      */
     protected $hidden = ['password', 'remember_token'];
+
 
     /**
      * Get the attributes that should be cast.
@@ -115,6 +114,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword,
                       });
             });
     }
+
+
+
+
+
+
+
+
+
 
 
 
