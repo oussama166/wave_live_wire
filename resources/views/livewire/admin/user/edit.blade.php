@@ -56,7 +56,7 @@
                             class="flex flex-wrap items-start justify-between w-full gap-5 p-8 bg-white border border-gray-300 shadow-lg rounded-xl font-Inter">
                             <input type="hidden" id="id" name="id" value="{{ $user['id'] }}" />
                             <x-form-input name="form.name" id="form.name" title="Name"
-                                placeholder="Insert the employee frist name" input-type="text"
+                                placeholder="Insert the employee first name" input-type="text"
                                 value="{{ $user['name'] }}" :label-on="true" form-style="flex-shrink-0 max-w-lg w-full"
                                 :set-disable="false" />
                             <x-form-input name="form.lastname" id="form.lastname" title="Last Name"
@@ -65,7 +65,7 @@
                                 form-style="flex-shrink-0 max-w-lg w-full " :set-disable="false" />
 
                             <livewire:utils.dropdown label="Role" :data="$this->form->getRole" selectedItem="{{ $user['role'] }}"
-                                index="label" select-area="form.role" :wire:key="$selectArea" />
+                                index="label" select-area="form.role" :wire:key="$this->form->selectArea" />
 
                             <x-form-input name="form.email" id="form.email" title="Email"
                                 placeholder="Insert the email of the employee " input-type="email"
@@ -82,7 +82,7 @@
                                 form-style="flex-shrink-0 max-w-lg w-full " :set-disable="false" />
 
                             <livewire:utils.dropdown label="Sex" :data="$this->form->getSex"
-                                selectedItem="{{ $user['sexe'] }}" select-area="form.sexe" :wire:key="$selectArea" />
+                                selectedItem="{{ $user['sexe'] }}" select-area="form.sexe" :wire:key="$this->form->selectArea" />
 
                             <x-form-input name="form.birth_date" id="form.birth_date" title="Birth date"
                                 placeholder="Insert the 5birth date of the employee " input-type="datePicker"
@@ -103,20 +103,28 @@
                                 placeholder="Insert the home address the employee " input-type="text"
                                 value="{{ $user['adresse'] }}" :label-on="true"
                                 form-style="flex-shrink-0 max-w-lg w-full " :set-disable="false" />
-                            <x-form-input name="form.balance" id="form.balance" title="Balance"
-                                placeholder="Insert the mobile phone number  of the employee " input-type="text"
-                                value="{{ $user['balance'] }}" :label-on="true"
-                                form-style="flex-shrink-0 max-w-lg w-full " :set-disable="false" :modelLive="false" />
+                            <x-form-input
+                                name="form.balance"
+                                id="form.balance"
+                                title="Balance"
+                                placeholder="Insert the mobile phone number  of the employee "
+                                input-type="text"
+                                value="{{ $user['balance'] }}"
+                                form-style="flex-shrink-0 max-w-lg w-full"
+                                model-type-live="live"
+                                :set-disable="false"
+                                :label-on="true"
+                            />
 
                             <livewire:utils.dropdown label="Experience Level" :data="$this->form->getExperienceLevels"
-                                selectedItem="{{ $user['experienceLevel']->label }}" select-area="experience_level"
-                                :wire:key="$selectArea" index="label" />
+                                selectedItem="{{ $user['experienceLevel']->label }}" select-area="form.experience_level"
+                                :wire:key="$this->form->selectArea" index="label" />
                             <livewire:utils.dropdown label="Family status" :data="$this->form->getFamilyStatus"
-                                selectedItem="{{ $user['familyStatus']->label }}" select-area="family_status"
-                                :wire:key="$selectArea"  index="label" />
+                                selectedItem="{{ $user['familyStatus']->label }}" select-area="form.family_status"
+                                :wire:key="$this->form->selectArea"  index="label" />
                             <livewire:utils.dropdown label="Nationality" :data="$this->form->getNationality"
-                                selectedItem="{{ $user['nationality']->label }}" select-area="nationality"
-                                :wire:key="$selectArea" index="label" />
+                                selectedItem="{{ $user['nationality']->label }}" select-area="form.nationality"
+                                :wire:key="$this->form->selectArea" index="label" />
 
 
 

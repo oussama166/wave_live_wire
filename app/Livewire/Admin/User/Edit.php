@@ -14,18 +14,6 @@ class Edit extends Component
     public userEdit $form;
     public $user;
 
-    #[Validate('required')]
-    public $selectArea;
-    #[Validate('required')]
-    public $experience_level;
-    #[Validate('required')]
-    public $family_status;
-    #[Validate('required')]
-    public $nationality;
-
-
-    // private
-    public $previous_balance;
 
     #[Title('Edit User')]
     public function mount($id)
@@ -46,11 +34,11 @@ class Edit extends Component
 
         // Update the init information from the user information array
         $this->form->role = $this->user['role'];
-        $this->form->sex = $this->user['sexe'];
+        $this->form->sexe = $this->user['sexe'];
 
-        $this->experience_level = $this->user['experienceLevel']->label;
-        $this->family_status = $this->user['familyStatus']->label;
-        $this->nationality = $this->user['nationality']->label;
+        $this->form->experience_level = $this->user['experienceLevel']->label;
+        $this->form->family_status = $this->user['familyStatus']->label;
+        $this->form->nationality = $this->user['nationality']->label;
 
         $this->form->balance = $this->user['balance'];
         $this->form->name = $this->user['name'];
@@ -97,15 +85,11 @@ class Edit extends Component
 
         if ($props == "form.balance") {
             $this->form->balance = $value;
-            $this->form->commentOn = $this->form->balance != $this->previous_balance;
+            $this->form->commentOn = $this->form->balance != $this->form->previous_balance;
         }
 
     }
 
-    public function updatedRole($value)
-    {
-        $this->role = $value;
-    }
 
 
 }

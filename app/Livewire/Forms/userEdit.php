@@ -40,6 +40,14 @@ class userEdit extends Form
     public $adresse;
     #[Validate("required|numeric")]
     public $balance;
+    #[Validate('required')]
+    public $selectArea;
+    #[Validate('required')]
+    public $experience_level;
+    #[Validate('required')]
+    public $family_status;
+    #[Validate('required')]
+    public $nationality;
     public $comment;
 
 
@@ -52,7 +60,6 @@ class userEdit extends Form
     public $getPosition;
     public $getNationality;
     public $getFamilyStatus;
-    public $getContracts;
     public $getRole;
     public $getSex;
 
@@ -120,11 +127,14 @@ class userEdit extends Form
             'adresse' => 'required|string',
             'balance' => 'required|numeric',
             'comment' => ($this->commentOn) ? 'required|string|min:10' : '',
+            'experience_level' => 'required',
+            'family_status' => 'required',
+            'nationality' => 'required',
         ]);
 
 
         try {
-            User::query()->where("id",$this->id)->update(
+            User::query()->where("id", $this->id)->update(
                 [
 
                     'name' => $this->name,
@@ -139,15 +149,22 @@ class userEdit extends Form
                     'phone' => $this->phone,
                     'adresse' => $this->adresse,
                     'balance' => $this->balance,
+                    'experience_level_id' => ExperienceLevels::query()->where('label', 'Like', $this->experience_level)->first()->id,
+                    'family_status_id' => FamilyStatus::query()->where('label', 'Like', $this->family_status)->first()->id,
+                    'nationality_id' => Nationality::query()->where('label', 'Like', $this->nationality)->first()->id,
                 ]
             );
 
-            ExceptionlLeaveBalance::query()->create([
-                "user_id" => $this->id,
-                "admin_id" => Auth::id(),
-                "days_added" => $this->balance - $this->previous_balance,
-                "raison" => $this->comment
-            ]);
+            if ($this->commentOn) {
+                ExceptionlLeaveBalance::query()->create([
+                    "user_id" => $this->id,
+                    "admin_id" => Auth::id(),
+                    "days_added" => $this->balance - $this->previous_balance,
+                    "raison" => $this->comment
+                ]);
+            }
+
+
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
         }

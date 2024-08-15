@@ -13,6 +13,7 @@
     'setDisable' => false,
     'setLeftIcon' => false,
     'modelLive' => false,
+    'modelTypeLive'=>'model',
     'formStyle' => '',
     'inputStyle' => '',
     'subMax' => 0,
@@ -29,6 +30,12 @@
     ];
 
     $inputClass = $classVariantInput[$errors->has($name) ? 'errors' : 'default'];
+
+$type = match ($modelTypeLive) {
+    "blur" => "wire:model.blur",
+    "live" => "wire:model.live",
+    default => "wire:model",
+};
 @endphp
 
 <div class="{{ $formStyle }} space-y-3">
@@ -59,7 +66,8 @@
                     class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}"
                 {{ $setDisable ? 'disabled' : '' }}
                 {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"
+                {{$type}}="{{$name}}"
+                {{--                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"--}}
                 wire:key="{{ $id }}"
                 />
             @elseif($inputType == "datePicker")
@@ -89,7 +97,8 @@
                     class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}"
                 {{ $setDisable ? 'disabled' : '' }}
                 {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"
+                {{$type}}="{{$name}}"
+                {{--                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"--}}
                 wire:key="{{ $id }}"
                 />
             @endif
