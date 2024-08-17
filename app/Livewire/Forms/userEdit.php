@@ -58,57 +58,7 @@ class userEdit extends Form
 
     public $commentOn = false;
 
-    //define variable
-    public $getExperienceLevels;
-    public $getPosition;
-    public $getNationality;
-    public $getFamilyStatus;
-    public $getRole;
-    public $getSex;
 
-
-    // GET INFORAMTION ABOUT USER FROM OTHER TABLES
-    public function getInfo(): void
-    {
-        $this->getExperienceLevels = ExperienceLevels::all()
-            ->map(function ($experienceLevel) {
-                return [
-                    'id' => (string)$experienceLevel->id, // Ensure ID is a string
-                    'label' => $experienceLevel->label, // Adjust according to your attribute
-                ];
-            })
-            ->toArray();
-        $this->getPosition = Position::all()->map(function ($position) {
-            return [
-                'id' => (string)$position->id,
-                'label' => $position->label,
-            ];
-        });
-        $this->getNationality = Nationality::all()->map(function (
-            $nationality
-        ) {
-            return [
-                'id' => (string)$nationality->id,
-                'label' => $nationality->label,
-            ];
-        });
-        $this->getFamilyStatus = FamilyStatus::all()->map(function (
-            $familyStatus
-        ) {
-            return [
-                'id' => (string)$familyStatus->id,
-                'label' => $familyStatus->label,
-            ];
-        });
-        $this->getRole = [
-            ['id' => '0', 'label' => 'admin'],
-            ['id' => '1', 'label' => 'user'],
-        ];
-        $this->getSex = [
-            ['id' => '0', 'label' => 'female'],
-            ['id' => '1', 'label' => 'male'],
-        ];
-    }
 
 
     // STORE THE DATA OR UPDATE IN THE DATABASE

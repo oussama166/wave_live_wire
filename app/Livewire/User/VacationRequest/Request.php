@@ -142,8 +142,7 @@ class Request extends Component
 
     public function updatedSelectArea($value)
     {
-        $this->selectArea = $this->vacationTypes->where('label', $value)->first()->getOriginal();
-
+        $this->vacationInfo = VacationType::query()->where('label', $value)->first()->getOriginal();
     }
 
 

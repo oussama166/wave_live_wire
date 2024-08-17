@@ -1,0 +1,12 @@
++ The admin he has any authorization to change him info in the admin panel
++ The table Salary in the Salary section into edit we will need to
+    1. make the admin schedule salary change at special date in the next days
+    2. take the info of the history for e.g : Salary historizes from the audit table
+
+
+
+
+
+
+
+

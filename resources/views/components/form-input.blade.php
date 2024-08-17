@@ -34,6 +34,8 @@
 $type = match ($modelTypeLive) {
     "blur" => "wire:model.blur",
     "live" => "wire:model.live",
+    "throttle"=>"wire:model.throttle",
+    "defer"=>"wire:model.defer",
     default => "wire:model",
 };
 @endphp
@@ -71,12 +73,13 @@ $type = match ($modelTypeLive) {
                 wire:key="{{ $id }}"
                 />
             @elseif($inputType == "datePicker")
-                <input id="{{$name}}" name="{{ $name }}" type="text"
-                       class="block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                       placeholder="{{$placeholder}}"
-                       wire:model.live="{{$name}}"
-                       value="{{ $value }}"
-                       wire:key="{{ $id }}"
+                <input
+                    id="{{$name}}" name="{{ $name }}" type="text"
+                    class="block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    placeholder="{{$placeholder}}"
+                    wire:model="{{$name}}"
+                    value="{{ $value }}"
+                    wire:key="{{ $id }}"
                 />
 
                 <script>
@@ -85,9 +88,20 @@ $type = match ($modelTypeLive) {
                             "{{$name}}",
                             {{$subMin}},
                             {{$subMax}}
-                        )
+                        );
                     })
+                    window.addEventListener("livewire:init",()=>{
+                        Livewire.hook("morph.added",()=>{
+                            InstanceDate(
+                                "{{$name}}",
+                                {{$subMin}},
+                                {{$subMax}}
+                            );
+                        })
+                    })
+
                 </script>
+
             @else
                 <input
                     type="{{ $inputType }}"

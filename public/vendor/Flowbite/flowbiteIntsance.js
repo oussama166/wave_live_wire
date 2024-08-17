@@ -63,8 +63,6 @@ export function InstanceDate(el,SUB_MIN = 0, SUB_MAX = 0) {
     // set the target element of the input field
     const $datepickerEl = document.getElementById(el);
 
-    console.log(SUB_MIN, SUB_MAX);
-    console.warn(subYears(new Date(), parseInt(SUB_MAX)));
 
     // optional options with de]fault values and callback functions
     const options = {
@@ -82,6 +80,30 @@ export function InstanceDate(el,SUB_MIN = 0, SUB_MAX = 0) {
     };
 
     const datepicker = new Datepicker($datepickerEl, options);
+    // console.log("datepicker");
+    // console.log(SUB_MIN, SUB_MAX);
+    // console.warn(subYears(new Date(), parseInt(SUB_MAX)));
+    // console.warn(subYears(new Date(), parseInt(SUB_MIN)));
+
+    // listen to the datepicker events
+    const handleDateBlur = () => {
+        // format the date to y-mm-dd
+        const selectedDates = datepicker.getDate();
+
+        if (selectedDates === null || selectedDates === undefined) {
+            return;
+        }
+        Livewire.dispatch('handleTimeChange', {
+            model: el,
+            value: format(selectedDates, 'y-MM-dd')
+        });
+    };
+
+    // implement the blur event
+    // i want to dispatch only when the form will be submited
+     $datepickerEl.addEventListener('changeDate', handleDateBlur);
+
+
 
 
 }

@@ -23,9 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web([
             RealRashid\SweetAlert\ToSweetAlert::class,
         ]);
-        $middleware->trustHosts([
-            "http://localhost:8000"
-        ]);
+//        $middleware->trustHosts([
+//            "http://localhost:8000"
+//        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

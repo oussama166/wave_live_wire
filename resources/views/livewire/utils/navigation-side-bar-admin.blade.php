@@ -8,7 +8,7 @@
     {{-- header < --}}
     <div class="w-full h-full">
         <ul class="flex flex-col w-full divide-y-2 divide-gray-100 ">
-            <a wire:navigate. href="/admin/dashboard">
+            <a wire:navigate href="/admin/dashboard">
                 <li
                  class="px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4] hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer aria-checked:bg-[#1c5daf] aria-checked:text-white"
                     aria-checked="{{ $active == '/admin/dashboard' ? 'true' : 'false' }}">

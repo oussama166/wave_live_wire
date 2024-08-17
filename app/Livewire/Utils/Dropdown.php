@@ -9,6 +9,7 @@ class Dropdown extends Component
 {
     public $label;
     public $data;
+    public $modelTypeLive;
     public $selectedItem;
     public $selectArea;
     public $index;
@@ -18,7 +19,8 @@ class Dropdown extends Component
         $data = [],
         $selectedItem = '',
         $selectArea = 'selectArea',
-        $index="label"
+        $index="label",
+        $modelTypeLive="",
     ) {
         $this->label = $label;
         $this->data = $data;
@@ -27,15 +29,10 @@ class Dropdown extends Component
 
         $this->selectArea = $selectArea;
         $this->index = $index;
+        $this->modelTypeLive = $modelTypeLive;
 
     }
 
-    public function updating($property, $value)
-    {
-        if ($property == 'select') {
-            $this->selectedItem = $value;
-        }
-    }
 
     public function render()
     {

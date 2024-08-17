@@ -11,11 +11,21 @@ class DataTable extends Component
     use WithPagination, DynamicTableQuery;
 
     public $headers = ['Start date', 'End date', 'Type', 'State', 'Duration'];
-    public $extractKey = ['start_at', 'end_at', 'vacation_type_id', 'leave_status_id', 'Duration'];
+    public $extractKey = [
+        'start_at',
+        'end_at',
+        'vacation_type_id',
+        'leave_status_id',
+        'Duration',
+    ];
+    public $whereHasConditions = [];
+    public $withJson = [];
     public $actionOn = false;
+    public $searchOn = false;
+    public $paginationArea = false;
     public $key;
-    public $search='';
-
+    public $type = 'satic';
+    public $search = '';
 
     public $modelClass;
     public $relations = [];
@@ -26,17 +36,21 @@ class DataTable extends Component
 
     public function mount(
         $modelClass,
-        $relations = [],
-        $conditions = [],
         $orderBy = 'created_at',
         $sortDirection = 'desc',
-        $perPage = 5,
-        $headers = [],
-        $extractKey = [],
-        $actionOn = false,
+        $type = 'satic',
         $search = '',
-    )
-    {
+        $perPage = 5,
+        $actionOn = false,
+        $searchOn = false,
+        $paginationArea = false,
+        $withJson = [],
+        $relations = [],
+        $conditions = [],
+        $headers = [],
+        $whereHasConditions = [],
+        $extractKey = []
+    ) {
         $this->modelClass = $modelClass;
         $this->relations = $relations;
         $this->conditions = $conditions;
@@ -47,6 +61,11 @@ class DataTable extends Component
         $this->extractKey = $extractKey ?: $this->extractKey;
         $this->actionOn = $actionOn;
         $this->search = $search;
+        $this->whereHasConditions = $whereHasConditions;
+        $this->searchOn = $searchOn;
+        $this->paginationArea = $paginationArea;
+        $this->type = $type;
+        $this->withJson = $withJson;
     }
 
     public function render()
@@ -55,24 +74,24 @@ class DataTable extends Component
             $this->modelClass,
             $this->relations,
             $this->conditions,
+            $this->whereHasConditions,
             $this->orderBy,
             $this->sortDirection,
             $this->perPage,
+            $this->withJson,
             $this->search
         );
-
         return view('livewire.utils.data-table', compact('data'));
     }
 
     // For tracking the search input update
-    public function updatedSearch($value){}
+    public function updatedSearch($value)
+    {
+    }
 
     // This for reset the search input
     public function resetSearch()
     {
         $this->search = '';
     }
-
-
-
 }

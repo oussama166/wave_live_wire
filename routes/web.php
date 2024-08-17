@@ -3,7 +3,8 @@
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Profile as AdminProfile;
 use App\Livewire\Admin\Profiles as AdminProfiles;
-use App\Livewire\Admin\User\Edit as AmdminEditUser;
+use App\Livewire\Admin\User\Edit as AdminEditUser;
+use App\Livewire\Admin\User\Add as AdminAddUser;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\ResetPassword;
@@ -34,8 +35,10 @@ Route::middleware(['layout-guest', 'guest'])->group(function () {
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', AdminDashboard::class)->name('Admin.Dashboard');
     Route::get('/admin/profile',AdminProfile::class)->name('Admin.Profile');
+
     Route::get('/admin/users',AdminProfiles::class)->name('Admin.Profiles');
-    Route::get('/admin/users/edit/{id}',AmdminEditUser::class)->name('Admin.edit');
+    Route::get('/admin/users/create',AdminAddUser::class)->name('Admin.create');
+    Route::get('/admin/users/edit/{id}',AdminEditUser::class)->name('Admin.edit');
 });
 
 

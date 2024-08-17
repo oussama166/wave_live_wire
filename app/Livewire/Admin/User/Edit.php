@@ -2,24 +2,49 @@
 
 namespace App\Livewire\Admin\User;
 
+use App\Livewire\Forms\editSalary;
 use App\Livewire\Forms\userEdit;
+use App\Models\AuditAdmin;
+use App\Models\ExperienceLevels;
+use App\Models\FamilyStatus;
+use App\Models\Nationality;
+use App\Models\Position;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Edit extends Component
 {
-    public userEdit $form;
+
+    protected $listeners = [
+        'handleTimeChange' => 'handleTimeChange',
+    ];
+
     public $user;
+
+    public userEdit $form;
+    public editSalary $formSalary;
+    public position $formPosition;
+
+
+    //define variable
+    public $getExperienceLevels;
+    public $getPosition;
+    public $getNationality;
+    public $getFamilyStatus;
+    public $getRole;
+    public $getSex;
+    public $getContracts;
+
 
 
     #[Title('Edit User')]
-    public function mount($id)
+    public function mount($id): void
     {
         $this->form->id = $id;
-        $this->form->getInfo();
+        $this->getInfo();
 
         // Getting the user information
         $this->user = User::query()
@@ -60,7 +85,7 @@ class Edit extends Component
     }
 
 
-    public function changeBasicInformation()
+    public function changeBasicInformation(): void
     {
         try {
             $this->form->save();
@@ -80,6 +105,12 @@ class Edit extends Component
 
     }
 
+
+    public function changeSalaryInformation(): void
+    {
+        echo "hey";
+    }
+
     public function updated($props, $value): void
     {
 
@@ -90,6 +121,66 @@ class Edit extends Component
 
     }
 
+
+
+    // GET INFORAMTION ABOUT USER FROM OTHER TABLES
+    public function getInfo(): void{
+        $this->getExperienceLevels = ExperienceLevels::all()
+            ->map(function ($experienceLevel) {
+                return [
+                    'id' => (string)$experienceLevel->id,
+                    'label' => $experienceLevel->label,
+                ];
+            })
+            ->toArray();
+        $this->getPosition = Position::all()->map(function ($position) {
+            return [
+                'id' => (string)$position->id,
+                'label' => $position->label,
+            ];
+        });
+        $this->getNationality = Nationality::all()->map(function (
+            $nationality
+        ) {
+            return [
+                'id' => (string)$nationality->id,
+                'label' => $nationality->label,
+            ];
+        });
+        $this->getFamilyStatus = FamilyStatus::all()->map(function (
+            $familyStatus
+        ) {
+            return [
+                'id' => (string)$familyStatus->id,
+                'label' => $familyStatus->label,
+            ];
+        });
+        $this->getRole = [
+            ['id' => '0', 'label' => 'admin'],
+            ['id' => '1', 'label' => 'user'],
+        ];
+        $this->getSex = [
+            ['id' => '0', 'label' => 'female'],
+            ['id' => '1', 'label' => 'male'],
+        ];
+    }
+
+    #[On('handleTimeChange')]
+    public function handleTimeChange($model, $value): void
+    {
+        // Check if the model contains "form"
+        if (Str::contains($model, 'form.')) {
+            $dataSet = str_replace('form.', '', $model);
+            $this->form->{$dataSet} = $value;
+        } elseif (Str::contains($model, 'formSalary.')) {
+            $dataSet = str_replace('formSalary.', '', $model);
+            $this->formSalary->{$dataSet} = $value;
+        } elseif (Str::contains($model, 'formPosition.')) {
+            $dataSet = str_replace('formPosition.', '', $model);
+            $this->formPosition->{$dataSet} = $value;
+        }
+
+    }
 
 
 }
