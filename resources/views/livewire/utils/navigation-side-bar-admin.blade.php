@@ -2,11 +2,12 @@
     id="sidebar">
 
     {{-- > header --}}
-    <div id="logo" class="w-full max-h-[150px] h-full flex items-center justify-center">
+    <div id="logo" class="w-full max-h-[100px] h-full flex items-center justify-center">
         <img src="{{ url('/assets/wave.svg') }}" alt="logo of wave" class="w-1/2" />
     </div>
-    {{-- header < --}} <div class="w-full h-full">
-        <ul class="flex flex-col w-full divide-y-2 divide-gray-100 ">
+    {{-- header < --}}
+    <div class="w-full h-full overflow-hidden">
+        <ul class="flex flex-col w-full divide-y-2 divide-gray-100 overflow-hidden">
             <a wire:navigate href="/admin/dashboard">
                 <li class="px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4] hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer aria-checked:bg-[#1c5daf] aria-checked:text-white"
                     aria-checked="{{ $active == '/admin/dashboard' ? 'true' : 'false' }}">
@@ -50,35 +51,108 @@
 
             </a>
 
-            {{-- Sub menue --}}
-
-            {{-- Sub menue --}}
 
 
-            <a wire:navigate href="/settings">
+
+            <a wire:navigate href="/admin/settings/ContractType">
                 <li class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-[#1c5daf] aria-checked:text-white
-                " aria-checked="{{ $active == '/settings' ? 'true' : 'false' }}">
+                " aria-checked="{{Str::contains($active,"/settings")  ? 'true' : 'false' }}">
 
                     <x-letsicon-setting-line class="w-7" />
                     Settings
                 </li>
             </a>
+
+            {{-- Sub menue --}}
+            <a wire:navigate href="/admin/settings/ContractType" id="item" class="z-0 hidden">
+                <li class="
+                w-full  px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/admin/settings/ContractType' ? 'true' : 'false' }}">
+                    Contracts Types
+                </li>
+            </a>
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden overflow-hidden">
+                <li class="
+                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    Holidays
+                </li>
+            </a>
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+                <li class="
+                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    Experience Levels
+                </li>
+            </a>
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+                <li class="
+                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    Family Status
+                </li>
+            </a>
+
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+                <li class="
+                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    Nationality
+                </li>
+            </a>
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+                <li class="
+                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    Position Type
+                </li>
+            </a>
+            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden overflow-hidden">
+                <li class="
+                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-primary-300 aria-checked:text-white
+                "
+                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    Vacation Type
+                </li>
+            </a>
+
+            {{-- Sub menue --}}
         </ul>
         </div>
 
 
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-            const drop = {{ Str::contains($active, '/vacationRequest') ? 'true' : 'false' }};
-            window.location.pathname.includes('/vacationRequest') ? dropGsap(drop, "#item") : null;
+            const drop = {{ Str::contains($active, '/settings') ? 'true' : 'false' }};
+            window.location.pathname.includes('/settings') ? dropGsap(drop, "#item") : null;
         });
 
         document.addEventListener("livewire:navigated", () => {
-            const drop = {{ Str::contains($active, '/vacationRequest') ? 'true' : 'false' }};
-            window.location.pathname.includes('/vacationRequest') ? dropGsap(drop, "#item") : null;
+            const drop = {{ Str::contains($active, '/settings') ? 'true' : 'false' }};
+            window.location.pathname.includes('/settings') ? dropGsap(drop, "#item") : null;
         });
         </script>
 

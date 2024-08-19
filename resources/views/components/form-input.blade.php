@@ -15,6 +15,7 @@
 'modelLive' => false,
 'modelTypeLive'=>'model',
 'formStyle' => '',
+'labelStyle'=>'',
 'inputStyle' => '',
 'subMax' => 0,
 'subMin' => 0
@@ -48,7 +49,8 @@
 <div class="{{ $formStyle }} space-y-3">
     <div class="w-full space-y-3">
         @if ($labelOn)
-            <label for="{{ $id }}" class="block mb-2 text-sm font-medium dark:text-white">{{ $title }}</label>
+            <label for="{{ $id }}"
+                   class="{{$labelStyle}} block mb-2 text-sm font-medium dark:text-white">{{ $title }}</label>
         @endif
 
         <div x-data="{ showPassword: false }" class="relative">
@@ -96,12 +98,19 @@
 
             @elseif($inputType == "textArea")
                 <textarea
-                    id="{{$id}}" name="{{$name}}" rows="4"
+                    id="{{$id}}"
+                    name="{{$name}}" rows="4"
                     placeholder="{{ $placeholder }}"
-                    {{ $setDisable
-                ? 'disabled' : '' }} {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >{{$value}}</textarea>
+                {{ $setDisable? 'disabled' : '' }}
+                {{ $setFocus ? 'autofocus' : '' }}
+                {{ $isRequire ? 'required' : '' }}
+                {{$type}}='{{$name}}'
+                class="
+                block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
+                "
+                >
+                {{$value}}
+                </textarea>
 
             @else
                 <input type="{{ $inputType }}" id="{{ $id }}" name="{{ $name }}" placeholder="{{ $placeholder }}"
