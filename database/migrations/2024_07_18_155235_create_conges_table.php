@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->date("start_at");
             $table->date("end_at");
+            $table->integer("leaves_days");
             $table->longText("description");
+            $table->text("comment")->nullable();
             $table->timestamps();
         });
     }

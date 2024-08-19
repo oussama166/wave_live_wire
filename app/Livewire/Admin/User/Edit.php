@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Edit extends Component
@@ -25,10 +26,13 @@ class Edit extends Component
     public $user;
 
     public userEdit $form;
+    #[Validate('required')]
     public editSalary $formSalary;
     public position $formPosition;
 
 
+    #[Validate("required|numeric")]
+    public $salary;
     //define variable
     public $getExperienceLevels;
     public $getPosition;
@@ -87,6 +91,7 @@ class Edit extends Component
 
     public function changeBasicInformation(): void
     {
+
         try {
             $this->form->save();
             $this->dispatch(

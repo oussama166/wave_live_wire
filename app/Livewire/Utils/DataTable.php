@@ -33,6 +33,7 @@ class DataTable extends Component
     public $orderBy = 'created_at';
     public $sortDirection = 'desc';
     public $perPage = 5;
+    public $holidayCounter = false;
 
     public function mount(
         $modelClass,
@@ -49,7 +50,8 @@ class DataTable extends Component
         $conditions = [],
         $headers = [],
         $whereHasConditions = [],
-        $extractKey = []
+        $extractKey = [],
+        $holidayCounter = false
     ) {
         $this->modelClass = $modelClass;
         $this->relations = $relations;
@@ -66,6 +68,7 @@ class DataTable extends Component
         $this->paginationArea = $paginationArea;
         $this->type = $type;
         $this->withJson = $withJson;
+        $this->holidayCounter = $holidayCounter;
     }
 
     public function render()
@@ -81,13 +84,11 @@ class DataTable extends Component
             $this->withJson,
             $this->search
         );
+
         return view('livewire.utils.data-table', compact('data'));
     }
 
     // For tracking the search input update
-    public function updatedSearch($value)
-    {
-    }
 
     // This for reset the search input
     public function resetSearch()

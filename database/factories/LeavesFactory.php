@@ -26,12 +26,13 @@ class LeavesFactory extends Factory
         $startAt = $this->faker->dateTimeBetween($endAt, 'now');
 
         return [
-            "start_at" => $endAt,
-            "end_at" => $startAt,
-            "description" => $this->faker->text(),
-            "user_id" => User::inRandomOrder()->first()->id,
-            "vacation_type_id" => VacationType::inRandomOrder()->first()->id,
-            "leave_status_id" => LeaveStatus::inRandomOrder()->first()->id,
+            'start_at' => $endAt,
+            'end_at' => $startAt,
+            'leaves_days'=>detect_holiday($startAt, $endAt),
+            'description' => $this->faker->text(255),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'vacation_type_id' => VacationType::inRandomOrder()->first()->id,
+            'leave_status_id' => LeaveStatus::inRandomOrder()->first()->id,
         ];
     }
 }

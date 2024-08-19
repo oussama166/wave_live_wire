@@ -1,5 +1,6 @@
 <div class="content">
     <livewire:utils.table
+
         :modelClass="App\Models\Leaves::class"
         :relations="['User', 'VacationType', 'LeaveStatus']"
         :conditions="[['user_id', Auth::id()]]"

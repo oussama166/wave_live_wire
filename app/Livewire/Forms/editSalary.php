@@ -13,4 +13,14 @@ class editSalary extends Form
     public $startDate;
     #[Validate("required|string|max:255")]
     public $description;
+
+    public function submitChnangeSalary(): void
+    {
+        dd($this->all());
+    }
+
+    public function updated()
+    {
+        dd($this->all());
+    }
 }

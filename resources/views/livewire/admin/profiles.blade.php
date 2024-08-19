@@ -7,7 +7,7 @@
                 wire:click="redirectToCreate" />
         </div>
 
-        <livewire:utils.data-table :modelClass="App\Models\User::class"
+        <livewire:utils.data-table type="static" :modelClass="App\Models\User::class"
             :relations="['position', 'contracts', 'experienceLevel']" :conditions="[]" :orderBy="'hiring_date'"
             :sortDirection="'desc'" :headers="['User', 'Phone Number', 'Position', 'Contract', 'Salary']"
             :actionOn="true"

@@ -5,6 +5,9 @@ use App\Livewire\Admin\Profile as AdminProfile;
 use App\Livewire\Admin\Profiles as AdminProfiles;
 use App\Livewire\Admin\User\Edit as AdminEditUser;
 use App\Livewire\Admin\User\Add as AdminAddUser;
+use App\Livewire\Admin\Vacations\VacationList as AdminVacationList;
+use App\Livewire\Admin\Vacations\Edit as AdminVacationEdit;
+use App\Livewire\Admin\Vacations\Create as AdminVacationCreate;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\ResetPassword;
@@ -39,6 +42,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/users',AdminProfiles::class)->name('Admin.Profiles');
     Route::get('/admin/users/create',AdminAddUser::class)->name('Admin.create');
     Route::get('/admin/users/edit/{id}',AdminEditUser::class)->name('Admin.edit');
+
+
+    Route::get("/admin/vacationRequest/list",AdminVacationList::class)->name('Admin.VacationRequest.List');
+    Route::get("/admin/vacationRequest/edit/{id}",AdminVacationEdit::class)->name('Admin.VacationRequest.Edit');
+    Route::get("/admin/vacationRequest/create",AdminVacationCreate::class)->name('Admin.VacationRequest.Create');
+
 });
 
 

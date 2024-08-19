@@ -141,9 +141,11 @@
                     @csrf
                     <section class="flex flex-wrap items-start justify-between w-full gap-5 p-8 bg-white font-Inter">
                         <input type="hidden" id="id" name="id" value="{{ $user['id'] }}" />
-                        <x-form-input name="formSalary.salary" id="formSalary.salary" title="New Salary"
+                        <x-form-input name="salary" id="salary" title="New Salary"
                             placeholder="Insert the amount for the new salary" input-type="text" :label-on="true"
-                            form-style="flex-shrink-0 max-w-lg w-full" :set-disable="false" />
+                            form-style="flex-shrink-0 max-w-lg w-full" :set-disable="false" model-type-live="lazy"
+                            wire:key='salary' />
+
                         <x-form-input name="formSalary.startDate" id="formSalary.startDate" title="Start date"
                             placeholder="Insert date that the new salary should be change" input-type="datePicker"
                             :label-on="true" form-style="flex-shrink-0 max-w-lg w-full" :set-disable="false"

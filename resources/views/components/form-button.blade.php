@@ -29,7 +29,7 @@
 @endif
 @if ($tag == 'link')
     <a class="{{ $classValueVariants[$buttonType] }} {{ $customClass }}" {{ $attributes }}>
-        {{ $value }}
         {{ $slot }}
+        {{ $value }}
     </a>
 @endif

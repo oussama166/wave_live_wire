@@ -1,56 +1,59 @@
 @props([
-    'name' => '',
-    'id' => '',
-    'title' => '',
-    'placeholder' => '',
-    'inputType' => 'text', // Default to text to handle password visibility
-    'value' => '',
-    'labelOn' => true,
-    'isRequire' => false,
-    'errorOn' => false,
-    'setFocus' => false,
-    'setIcon' => true,
-    'setDisable' => false,
-    'setLeftIcon' => false,
-    'modelLive' => false,
-    'modelTypeLive'=>'model',
-    'formStyle' => '',
-    'inputStyle' => '',
-    'subMax' => 0,
-    'subMin' => 0
+'name' => '',
+'id' => '',
+'title' => '',
+'placeholder' => '',
+'inputType' => 'text', // Default to text to handle password visibility
+'value' => '',
+'labelOn' => true,
+'isRequire' => false,
+'errorOn' => false,
+'setFocus' => false,
+'setIcon' => true,
+'setDisable' => false,
+'setLeftIcon' => false,
+'modelLive' => false,
+'modelTypeLive'=>'model',
+'formStyle' => '',
+'inputStyle' => '',
+'subMax' => 0,
+'subMin' => 0
 
 ])
 
 @php
     $classVariantInput = [
-        'default' =>
-            'peer py-3 px-4 block w-full bg-gray-100 border border-black/30 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600',
-        'errors' =>
-            'peer py-3 px-4 block w-full bg-red-100 border border-red-400/30 rounded-lg text-sm focus:border-red-500 focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-700 dark:border-transparent dark:text-red-400 dark:placeholder-red-500 dark:focus:ring-red-600 ',
+    'default' =>
+    'peer py-3 px-4 block w-full bg-gray-100 border border-black/30 rounded-lg text-sm focus:border-blue-500
+    focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent
+    dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600',
+    'errors' =>
+    'peer py-3 px-4 block w-full bg-red-100 border border-red-400/30 rounded-lg text-sm focus:border-red-500
+    focus:ring-red-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-red-700 dark:border-transparent
+    dark:text-red-400 dark:placeholder-red-500 dark:focus:ring-red-600 ',
     ];
 
     $inputClass = $classVariantInput[$errors->has($name) ? 'errors' : 'default'];
 
-$type = match ($modelTypeLive) {
+    $type = match ($modelTypeLive) {
     "blur" => "wire:model.blur",
     "live" => "wire:model.live",
+    "lazy" => "wire:model.lazy",
     "throttle"=>"wire:model.throttle",
     "defer"=>"wire:model.defer",
     default => "wire:model",
-};
+    };
 @endphp
 
 <div class="{{ $formStyle }} space-y-3">
     <div class="w-full space-y-3">
         @if ($labelOn)
-            <label for="{{ $id }}"
-                   class="block mb-2 text-sm font-medium dark:text-white">{{ $title }}</label>
+            <label for="{{ $id }}" class="block mb-2 text-sm font-medium dark:text-white">{{ $title }}</label>
         @endif
 
         <div x-data="{ showPassword: false }" class="relative">
             @if($setLeftIcon)
-                <div
-                    class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     @if ($inputType == 'password')
                         <x-heroicon-c-lock-closed class="w-5 h-5 text-gray-500 dark:text-neutral-500"/>
                     @elseif($inputType == 'email')
@@ -60,27 +63,16 @@ $type = match ($modelTypeLive) {
             @endif
 
             @if(@$inputType == "password")
-                <input
-                    :type="showPassword ? 'text' : 'password'"
-                    id="{{ $id }}"
-                    name="{{ $name }}"
-                    placeholder="{{ $placeholder }}" value="{{ $value }}"
-                    class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}"
-                {{ $setDisable ? 'disabled' : '' }}
-                {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                {{$type}}="{{$name}}"
-                {{--                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"--}}
-                wire:key="{{ $id }}"
-                />
+                <input :type="showPassword ? 'text' : 'password'" id="{{ $id }}" name="{{ $name }}"
+                       placeholder="{{ $placeholder }}" value="{{ $value }}"
+                       class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}" {{ $setDisable
+                ? 'disabled' : '' }} {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
+                {{$type}}="{{$name}}" {{-- {{$modelLive ? 'wire:model.live' : 'wire:model.blur' }}="{{ $name }}" --}}
+                wire:key="{{ $id }}" />
             @elseif($inputType == "datePicker")
-                <input
-                    id="{{$name}}" name="{{ $name }}" type="text"
-                    class="block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    placeholder="{{$placeholder}}"
-                    wire:model="{{$name}}"
-                    value="{{ $value }}"
-                    wire:key="{{ $id }}"
-                />
+                <input id="{{$name}}" name="{{ $name }}" type="text"
+                       class="block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                       placeholder="{{$placeholder}}" wire:model="{{$name}}" value="{{ $value }}" wire:key="{{ $id }}"/>
 
                 <script>
                     window.addEventListener("DOMContentLoaded", () => {
@@ -90,8 +82,8 @@ $type = match ($modelTypeLive) {
                             {{$subMax}}
                         );
                     })
-                    window.addEventListener("livewire:init",()=>{
-                        Livewire.hook("morph.added",()=>{
+                    window.addEventListener("livewire:init", () => {
+                        Livewire.hook("morph.added", () => {
                             InstanceDate(
                                 "{{$name}}",
                                 {{$subMin}},
@@ -102,19 +94,22 @@ $type = match ($modelTypeLive) {
 
                 </script>
 
+            @elseif($inputType == "textArea")
+                <textarea
+                    id="{{$id}}" name="{{$name}}" rows="4"
+                    placeholder="{{ $placeholder }}"
+                    {{ $setDisable
+                ? 'disabled' : '' }} {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                >{{$value}}</textarea>
+
             @else
-                <input
-                    type="{{ $inputType }}"
-                    id="{{ $id }}"
-                    name="{{ $name }}"
-                    placeholder="{{ $placeholder }}" value="{{ $value }}"
-                    class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}"
-                {{ $setDisable ? 'disabled' : '' }}
-                {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                {{$type}}="{{$name}}"
-                {{--                {{$modelLive ? 'wire:model.live' : 'wire:model.blur'}}="{{ $name }}"--}}
-                wire:key="{{ $id }}"
-                />
+                <input type="{{ $inputType }}" id="{{ $id }}" name="{{ $name }}" placeholder="{{ $placeholder }}"
+                       value="{{$value}}"
+                       class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}" {{ $setDisable
+                ? 'disabled' : '' }} {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
+                {{$type}}="{{ $name }}" {{-- {{$modelLive ? 'wire:model.live' : 'wire:model.blur' }}="{{ $name }}"
+                --}} />
             @endif
 
 

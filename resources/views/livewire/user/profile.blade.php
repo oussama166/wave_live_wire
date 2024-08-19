@@ -18,7 +18,7 @@
             <x-form-input name="lastname" id="lastname" title="Last Name" placeholder="Insert your last name"
                 input-type="text" value="{{ auth()->user()->lastname }}" :label-on="true"
                 form-style="flex-shrink-0 max-w-lg w-full " />
-            <x-form-input name="role" id="role" title="Role" placeholder="Select you role" input-type="text"
+            <x-form-input name="role" id="role" ti-tle="Role" placeholder="Select you role" input-type="text"
                 value="{{ auth()->user()->role }}" :label-on="true" form-style="flex-shrink-0 max-w-lg w-full "
                 :set-disable="true" />
             <x-form-input name="email" id="email" title="Email" placeholder="insert you email" input-type="text"

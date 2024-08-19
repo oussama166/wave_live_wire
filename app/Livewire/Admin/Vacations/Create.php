@@ -1,48 +1,76 @@
 <?php
 
-namespace App\Livewire\User\VacationRequest;
+namespace App\Livewire\Admin\Vacations;
 
 use App\Models\Leaves;
 use App\Models\LeaveStatus;
+use App\Models\User;
 use App\Models\VacationType;
 use App\Notifications\CongeInfo;
-use DateTime;
 use Illuminate\Support\Facades\Log;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class Request extends Component
+class Create extends Component
 {
     protected $listeners = [
+        "setSelectedItem" => "setSelectedItem",
         'datesSelected' => 'handleDatesSelected',
-        'updateSelect' => 'updateSelect',
     ];
-
-    #[Validate('required', message: "Vacation Type is require filed")]
-    public $selectArea;
-    #[Validate('required', message: "Start at is require filed")]
-    public $startAt;
-    #[Validate('required', message: "End at is require filed")]
-    public $endAt;
-    #[Validate('required|min:10', message: "Description at is require filed")]
-    public $description = '';
-
     public $vacationTypes;
+    public $selectArea;
+    #[Validate("required")]
+    public $selectedValue;
+    #[Validate("required")]
+    public $description;
+    #[Validate("required")]
+    public $startAt;
+    #[Validate("required")]
+    public $endAt;
 
-    public $vacationInfo = null;
-
-
-    public function createVacationRequest()
+    #[Title("Create new vacation")]
+    public function render()
     {
+        $this->getInfo();
+        return view('livewire.admin.vacations.create');
+    }
+
+    #[On('setSelectedItem')]
+    public function setSelectedItem($result): void
+    {
+        \Log::info("Vacation created", [$result]);
+        $this->selectedValue = User::query()->with(["position", "contracts", "experienceLevel"])->find($result);
+    }
+
+    public function handleDatesSelected($startAt, $endAt)
+    {
+        $this->startAt = $startAt;
+        $this->endAt = $endAt;
+    }
+
+
+    public function getInfo()
+    {
+        $this->vacationTypes = VacationType::all()->map(function ($vac) {
+            return [
+                'id' => $vac->id,
+                'label' => $vac->label,
+            ];
+        });
+    }
+
+    public function createVacation() {
         // Validate the request data
         $this->validate();
 
         // Calculate the amount of days for the vacation request
-        $amount = detect_holiday(new DateTime($this->startAt), new DateTime($this->endAt));
+        $amount = detect_holiday(new \DateTime($this->startAt), new \DateTime($this->endAt));
 
         // Get the user instance
-        $user = auth()->user();
+        $user = $this->selectedValue;
+
 
         // Check if the user has enough balance
         if ($user->balance >= $amount) {
@@ -50,15 +78,17 @@ class Request extends Component
                 \DB::beginTransaction();
 
                 // Create the vacation request
-                $leave = Leaves::query()->create([
+                $leaveData = [
                     'start_at' => $this->startAt,
                     'end_at' => $this->endAt,
                     'description' => $this->description,
-                    'leaves_days'=>$amount,
-                    'vacation_type_id' => $this->vacationInfo["id"],
-                    'user_id' => $user->id,
-                    'leave_status_id' => LeaveStatus::query()->where('label','Like','Pending')->first()->id,
-                ]);
+                    'leaves_days' => $amount,
+                    'vacation_type_id' => VacationType::query()->where("label", "like", $this->selectArea)->first()->id,
+                    'user_id' => (int) $user->id,
+                    'leave_status_id' => LeaveStatus::query()->where('label', 'Like', 'Approved')->first()->id,
+                ];
+
+                $leave = Leaves::query()->create($leaveData);
 
                 if ($leave) {
                     // Update the user's balance
@@ -77,13 +107,19 @@ class Request extends Component
                         confirmSet: true,
                         timer: 3500
                     );
-                    $user->notify(new CongeInfo('Vacation request',$leave->getOriginal(),"Pending"));
+
+                    // Notification (Add logging around this)
+                    try {
+                        $notifyUser = User::query()->find($user->id);
+                        Log::info("data info",[$notifyUser]);
+                        $notifyUser->notify(new CongeInfo('Vacation request', $leave->getOriginal(), "Approved"));
+                        sleep(4);
+                    } catch (\Exception $e) {
+                        Log::error('Failed to send notification: ' . $e->getMessage());
+                    }
+
                     // Redirect to the user dashboard
-                    // $this->redirectRoute('User.Dashboard', navigate: true);
-                    redirect()->route('User.Dashboard');
-
-
-
+                    return redirect()->route('Admin.VacationRequest.List');
                 } else {
                     throw new \Exception('Failed to create vacation request.');
                 }
@@ -112,38 +148,6 @@ class Request extends Component
                 timer: 3500
             );
         }
-    }
-
-
-    public function mount()
-    {
-
-        $this->vacationTypes = VacationType::all()->map(function($vacationType) {
-            return [
-                'id' => (string) $vacationType->id, // Ensure ID is a string
-                'label' => $vacationType->label,    // Adjust according to your attribute
-            ];
-        })->toArray();
-    }
-
-    #[Title('Vacation Request')]
-    public function render()
-    {
-        $getVacationTypes = VacationType::select('id', 'label')->get();
-        return view('livewire.user.vacation-request.request', [
-            'vacationTypes' => $getVacationTypes,
-        ]);
-    }
-
-    public function handleDatesSelected($startAt, $endAt)
-    {
-        $this->startAt = $startAt;
-        $this->endAt = $endAt;
-    }
-
-    public function updatedSelectArea($value)
-    {
-        $this->vacationInfo = VacationType::query()->where('label', $value)->first()->getOriginal();
     }
 
 

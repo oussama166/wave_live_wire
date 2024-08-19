@@ -77,6 +77,8 @@ trait DynamicTableQuery
         // Apply sorting
         $query->orderBy($orderBy, $sortDirection);
 
+        Log::alert('message', ['data' => $query->get()]);
+
         // Paginate the results
         return $query->paginate($perPage);
     }

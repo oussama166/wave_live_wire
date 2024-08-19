@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
     use HasFactory, Notifiable;
@@ -32,7 +31,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
      * @var array<int, string>
      */
     protected $hidden = ['password', 'remember_token'];
-
 
     /**
      * Get the attributes that should be cast.
@@ -93,37 +91,31 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->role === 'admin';
     }
 
-
     public function scopeSearch(Builder $query, ?string $searchText)
     {
         $searchText = "%{$searchText}%";
-            $query->where(function (Builder $query) use ($searchText) {
-                $query->where('name', 'like', $searchText)
-                      ->orWhere('lastname', 'like', $searchText)
-                      ->orWhere('phone', 'like', $searchText)
-                      ->orWhere('email', 'like', $searchText)
-                      ->orWhere('role','like', $searchText)
-                      ->orWhereHas('experienceLevel', function (Builder $query) use ($searchText) {
-                          $query->where('label', 'like', $searchText);
-                      })
-                      ->orWhereHas('familyStatus', function (Builder $query) use ($searchText) {
-                          $query->where('label', 'like', $searchText);
-                      })
-                      ->orWhereHas('contracts',function(Builder $query) use ($searchText){
-                          $query->where('label','like',$searchText);
-                      });
-            });
+        $query->where(function (Builder $query) use ($searchText) {
+            $query
+                ->where('name', 'like', $searchText)
+                ->orWhere('lastname', 'like', $searchText)
+                ->orWhere('phone', 'like', $searchText)
+                ->orWhere('email', 'like', $searchText)
+                ->orWhere('role', 'like', $searchText)
+                ->orWhereHas('experienceLevel', function (Builder $query) use (
+                    $searchText
+                ) {
+                    $query->where('label', 'like', $searchText);
+                })
+                ->orWhereHas('familyStatus', function (Builder $query) use (
+                    $searchText
+                ) {
+                    $query->where('label', 'like', $searchText);
+                })
+                ->orWhereHas('contracts', function (Builder $query) use (
+                    $searchText
+                ) {
+                    $query->where('label', 'like', $searchText);
+                });
+        });
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
