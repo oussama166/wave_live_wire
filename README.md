@@ -49,10 +49,10 @@ To install and run this project, follow these steps:
    ```
 
 4. **Database Setup:**
-   Set your database credentials in the `.env` file, then run the migrations and seed the database:
+   Set your database credentials in the `.env` file, then run the migrations and seed the database with dummy data from factories:
    ```bash
    php artisan migrate
-   php artisan db:seed
+   php artisan migrate:fresh --seed
    ```
 
 5. **Install Node.js Dependencies:**
