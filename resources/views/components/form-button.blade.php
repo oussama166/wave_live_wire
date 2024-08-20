@@ -21,6 +21,7 @@
         type="{{ $type }}"
         class="{{ $customClass }} {{ $classValueVariants[$buttonType] }}"
         {{ $attributes }}
+        wire:loading.attr="disabled"
 
     >
         {{ $value }}

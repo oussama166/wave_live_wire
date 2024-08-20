@@ -77,13 +77,13 @@
                     Contracts Types
                 </li>
             </a>
-            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden overflow-hidden">
+            <a wire:navigate href="/admin/settings/holidays" id="item" class="z-0 hidden overflow-hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
                 "
-                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    aria-checked="{{ $active === '/admin/settings/holidays' ? 'true' : 'false' }}">
                     Holidays
                 </li>
             </a>

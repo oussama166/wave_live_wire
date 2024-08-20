@@ -11,6 +11,7 @@
         "php": "^8.2",
         "andreiio/blade-remix-icon": "^3.3",
         "blade-ui-kit/blade-heroicons": "^2.4",
+        "codeat3/blade-eos-icons": "^1.14",
         "codeat3/blade-phosphor-icons": "^2.2",
         "davidhsianturi/blade-bootstrap-icons": "^1.5",
         "fahlisaputra/laravel-minify": "^1.1",

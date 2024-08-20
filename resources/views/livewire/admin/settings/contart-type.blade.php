@@ -14,14 +14,20 @@
                         <div class="w-full relative">
                             {{$contract['label']}}
 
-                            <div class="absolute right-10 top-full -translate-y-full cursor-pointer"
-                                 @click="$dispatch('changeData',{id:'{{$contract['id']}}'})"
-
+                            <div
+                                class="max-w-[80px] w-full absolute right-2 top-full -translate-y-full cursor-pointer inline-flex items-center gap-1"
                             >
-                                <div class="w-6 h-6 "
+                                <div class="w-6 h-6 text-primary-500"
 
+                                 @click="$dispatch('changeData',{id:'{{$contract['id']}}'})"
                                 >
-                                    <x-phosphor-dots-three-circle-vertical/>
+                                    <x-eos-mode-edit-o />
+                                </div>
+                                <hr class="w-6 h-0.5 bg-primary500/40 rotate-90"/>
+                                <div class="w-6 h-6 text-primary-500"
+                                 @click="$dispatch('deleteData',{id:'{{$contract['id']}}'})"
+                                >
+                                    <x-eos-delete-outline-o />
                                 </div>
 
                             </div>

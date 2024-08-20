@@ -6,17 +6,23 @@ use App\Models\Contracts;
 use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
+use RealRashid\SweetAlert\SweetAlertServiceProvider;
 
 class ContartType extends Component
 {
 
     protected $listeners = [
         "changeData" => "changeData",
+        "deleteData" => "deleteData",
     ];
     public $contracts;
 
+    #[Validate("required|min:3")]
     public string $label='';
+    #[Validate("required|min:3|max:255")]
     public string $description='';
 
 
@@ -46,12 +52,19 @@ class ContartType extends Component
     {
         $contractData = Contracts::query()->find($id);
         $this->label = $contractData->label;
-        Log::info("Description", [$contractData->description]);
         $this->description = $contractData->description;
+    }
+    #[On('deleteData')]
+    public function deleteData($id): void
+    {
+
+        $contractData = Contracts::query()->find($id);
+        $contractData->delete();
     }
 
     public function updateContractType(): void
     {
+        $this->validate();
         Contracts::query()->updateOrCreate(
             [
                 "label" => $this->label,

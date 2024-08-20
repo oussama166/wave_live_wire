@@ -9,6 +9,7 @@ use App\Livewire\Admin\Vacations\VacationList as AdminVacationList;
 use App\Livewire\Admin\Vacations\Edit as AdminVacationEdit;
 use App\Livewire\Admin\Vacations\Create as AdminVacationCreate;
 use App\Livewire\Admin\Settings\ContartType as AdminSettingsContractType;
+use App\Livewire\Admin\Settings\Holiday as AdminSettingsHolidays;
 
 
 
@@ -54,6 +55,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
     Route::get("/admin/settings/ContractType",AdminSettingsContractType::class)->name('Admin.Settings.ContractType');
+    Route::get("/admin/settings/holidays",AdminSettingsHolidays::class)->name('Admin.Settings.Holidays');
 
 });
 

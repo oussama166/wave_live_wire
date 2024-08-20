@@ -29,9 +29,6 @@
         <div class="w-[35vw] h-[50vh] bg-white border rounded-lg p-5">
             <canvas wire:ignore id="myChart1"></canvas>
         </div>
-        <div class="w-[35vw] h-[50vh] bg-white border rounded-lg p-5">
-            <canvas wire:ignore id="myChart2" class="w-[50vw] h-[50vh]"></canvas>
-        </div>
     </section>
 </div>
 
@@ -41,7 +38,8 @@
 
 
         let ctx1 = document.getElementById('myChart1').getContext('2d');
-        let ctx2 = document.getElementById('myChart2').getContext('2d');
+
+
 
         // Initialled the first one
         initializeChart(ctx1, {
@@ -85,6 +83,52 @@
                 }
             }
         });
-
     });
+    window.addEventListener("livewire:navigated", () => {
+        let ctx1 = document.getElementById('myChart1').getContext('2d');
+
+
+        // Initialled the first one
+        initializeChart(ctx1, {
+            labels:@json($dataSet->labels),
+            datasets: [{
+                label: 'Average Salary',
+                data: @json($dataSet->data),
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1,
+            }],
+        }, 'bar', {
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: {
+                        display: false,
+                        text: 'Revenue in MAD',
+                        padding: 10
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Monthly Revenue'
+                }
+            }
+        });
+    })
 </script>
