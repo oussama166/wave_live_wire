@@ -74,7 +74,9 @@
             @elseif($inputType == "datePicker")
                 <input id="{{$name}}" name="{{ $name }}" type="text"
                        class="{{ $inputStyle }} block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                       placeholder="{{$placeholder}}" wire:model="{{$name}}" value="{{ $value }}" wire:key="{{ $id }}"/>
+                       placeholder="{{$placeholder}}" wire:model="{{$name}}" value="{{ $value }}" wire:key="{{ $id }}"
+                       wire:loading.attr="disabled"
+                />
 
                 <script>
                     window.addEventListener("DOMContentLoaded", () => {
@@ -98,6 +100,7 @@
 
             @elseif($inputType == "textArea")
                 <textarea
+                    wire:loading.attr="disabled"
                     id="{{$id}}"
                     name="{{$name}}" rows="4"
                     placeholder="{{ $placeholder }}"
@@ -112,13 +115,27 @@
                 {{$value}}
                 </textarea>
 
+            @elseif($inputType == "colorPicker")
+                <input
+                    type="color"
+                    class="{{$inputStyle}} {{ $inputClass }}  bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none"
+                    id="{{$id}}"
+                    name="{{$name}}"
+                {{$type}}="{{$name}}"
+                value="{{$value}}"
+                title="{{$placeholder}}"
+                />
+
             @else
-                <input type="{{ $inputType }}" id="{{ $id }}" name="{{ $name }}" placeholder="{{ $placeholder }}"
-                       value="{{$value}}"
-                       class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}" {{ $setDisable
+                <input
+                    wire:loading.attr="disabled"
+                    type="{{ $inputType }}" id="{{ $id }}" name="{{ $name }}" placeholder="{{ $placeholder }}"
+                    value="{{$value}}"
+                    class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}" {{ $setDisable
                 ? 'disabled' : '' }} {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
-                {{$type}}="{{ $name }}" {{-- {{$modelLive ? 'wire:model.live' : 'wire:model.blur' }}="{{ $name }}"
-                --}} />
+                {{$type}}="{{ $name }}"
+                {{-- {{$modelLive ? 'wire:model.live' : 'wire:model.blur' }}="{{ $name }}"
+            --}} />
             @endif
 
 

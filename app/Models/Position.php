@@ -12,7 +12,7 @@ class Position extends Model
 
     protected $table = 'positions';
 
-    protected $fillable = ['id'];
+    protected $guarded = ['id'];
 
 
     // Relation btw models

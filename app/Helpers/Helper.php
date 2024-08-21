@@ -6,34 +6,47 @@
  * @param DateTime $start The start date.
  * @param DateTime $end The end date.
  * @param array $holidays An array of holiday dates (as strings in 'Y-m-d' format).
+ * @return int The number of working days.
  * @throws Exception
  */
-
-function detect_holiday(
-    DateTime $start,
-    DateTime $end,
-    array $holidays = []
-): int {
-    //    $startDate = new DateTimeImmutable('Y-m-d', $start);
-    //    $endDate = new DateTimeImmutable('Y-m-d', $end);
-    // Create DateTimeImmutable instances from DateTime object
-
+function detect_holiday(DateTime $start, DateTime $end, array $holidays = []): int
+{
+    // Create DateTimeImmutable instances from DateTime objects
     $startDate = DateTimeImmutable::createFromMutable($start);
     $endDate = DateTimeImmutable::createFromMutable($end);
 
-    $interval = $startDate->diff($endDate);
-
+    // Calculate the total number of days between the two dates
+    $interval = $startDate->diff($endDate->modify('+1 day'));
     $days = $interval->days;
 
-    // // create an iterable period of date (P1D equates to 1 day)
-    $period = new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
+    // Retrieve holidays for the next year
+    $holidayDates = \App\Models\Holiday::query()
+        ->get('date')
+        ->pluck('date')
+        ->toArray();
+
+    // Merge passed holidays with the fetched holidays
+
+
+    // Create an iterable period of dates (P1D equates to 1 day)
+    $period = new DatePeriod($startDate, new DateInterval('P1D'), $endDate->modify('+1 day'));
+
+
+    echo $endDate->modify('+1 day')->format('Y-m-d');
+    echo 'days number -> '.$days;
+
     foreach ($period as $dt) {
         $curr = $dt->format('D');
 
+        // Exclude weekends
         if ($curr == 'Sat' || $curr == 'Sun') {
             $days--;
-        } elseif (in_array($dt->format('Y-m-d'), $holidays)) {
-            $days--;
+        } elseif (in_array($dt->format('Y-m-d'), $holidayDates)) {
+            // Check if the holiday is not on a weekend
+            $holidayDay = $dt->format('D');
+            if ($holidayDay !== 'Sat' && $holidayDay !== 'Sun') {
+                $days--;
+            }
         }
     }
 

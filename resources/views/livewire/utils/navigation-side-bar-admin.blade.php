@@ -87,24 +87,24 @@
                     Holidays
                 </li>
             </a>
-            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+            <a wire:navigate href="/admin/settings/familyStatus" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
                 "
-                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
-                    Experience Levels
+                    aria-checked="{{ $active === '/admin/settings/familyStatus' ? 'true' : 'false' }}">
+                    Family Status
                 </li>
             </a>
-            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+            <a wire:navigate href="/admin/settings/experienceLevels" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
                 "
-                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
-                    Family Status
+                    aria-checked="{{ $active === '/admin/settings/experienceLevels' ? 'true' : 'false' }}">
+                    Experience Levels
                 </li>
             </a>
 
@@ -118,23 +118,23 @@
                     Nationality
                 </li>
             </a>
-            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+            <a wire:navigate href="/admin/settings/positionTypes" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
                 "
-                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    aria-checked="{{ $active === '/admin/settings/positionTypes' ? 'true' : 'false' }}">
                     Position Type
                 </li>
             </a>
-            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden overflow-hidden">
+            <a wire:navigate href="/admin/settings/vacationTypes" id="item" class="z-0 hidden overflow-hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
                 "
-                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
+                    aria-checked="{{ $active === '/admin/settings/vacationTypes' ? 'true' : 'false' }}">
                     Vacation Type
                 </li>
             </a>

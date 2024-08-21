@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NationalitySeeder::class);
         $this->call(PositionSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(HolidaySeeder::class);
         $this->call(LeavesSeeder::class);
     }
 }

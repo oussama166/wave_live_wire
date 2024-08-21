@@ -3,13 +3,10 @@
 namespace App\Livewire\Admin\Settings;
 
 use App\Models\Contracts;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use RealRashid\SweetAlert\Facades\Alert;
-use RealRashid\SweetAlert\SweetAlertServiceProvider;
 
 class ContartType extends Component
 {
