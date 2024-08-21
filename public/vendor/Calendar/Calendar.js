@@ -21,7 +21,7 @@ export const MOCK_CALENDARS = [
     },
 ];
 
-export function initCalendar(elementId, options = {}, events = [{}]) {
+export function initCalendar(elementId, options = {}, events = [{}],holidays = [{}]) {
     const calendarEl = document.querySelector(elementId);
     if (!calendarEl) {
         return;
@@ -78,6 +78,8 @@ export function initCalendar(elementId, options = {}, events = [{}]) {
     };
 
     const calendar = new Calendar(calendarEl, defaultOptions);
+
+    calendar.createEvents(holidays);
 
     if (events.length !== 0) {
         console.log(events);

@@ -17,7 +17,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const calendarOptions = {};
             const calendar = window.initCalendar('#calendar', calendarOptions, JSON.parse(
-                @json($events)));
+                @json($events)),JSON.parse(@json($holidays)));
 
             const updateCurrentDate = () => {
                 const viewName = calendar.getViewName();

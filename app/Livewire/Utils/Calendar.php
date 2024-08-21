@@ -2,21 +2,26 @@
 
 namespace App\Livewire\Utils;
 
+use App\Models\Holiday;
 use App\Models\Leaves;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Calendar extends Component
 {
     public $events = [];
+    public $holidays = [];
 
     public function mount($events)
     {
         $this->events = $events;
+        $this->holidays = $this->getHolidays();
     }
     public function render()
     {
         $this->events = $this->getEvents();
+        $this->holidays = $this->getHolidays();
 
         return view('livewire.utils.calendar');
     }
@@ -49,5 +54,31 @@ class Calendar extends Component
         });
 
         return $calendarEvents->toJson(JSON_UNESCAPED_UNICODE);
+    }
+    public function getHolidays()
+    {
+        $holidays = Holiday::query()
+            ->where('status', 'national')
+            ->get(['id', 'name', 'date', 'days_number', 'status']);
+
+        $calendarHolidays = $holidays->map(function ($holiday) {
+            return [
+                'id' => (string) $holiday->id,
+                'calendarId' => '2',
+                'title' => $holiday->name,
+                'category' => 'allday',
+                'start' => $holiday->date,
+                'end' =>
+                    $holiday->status != 'national'
+                        ? (new DateTime($holiday->date))
+                            ->modify('+' . $holiday->days_number . ' days')
+                            ->format('Y-m-d')
+                        : $holiday->date,
+                'backgroundColor' => '#f6b352',
+                'isReadOnly' => true,
+            ];
+        });
+
+        return $calendarHolidays->toJson(JSON_UNESCAPED_UNICODE);
     }
 }
