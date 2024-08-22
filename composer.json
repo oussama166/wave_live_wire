@@ -15,6 +15,7 @@
         "codeat3/blade-phosphor-icons": "^2.2",
         "davidhsianturi/blade-bootstrap-icons": "^1.5",
         "fahlisaputra/laravel-minify": "^1.1",
+        "laravel/fortify": "^1.24",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",

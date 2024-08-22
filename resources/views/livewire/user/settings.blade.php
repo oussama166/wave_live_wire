@@ -5,14 +5,37 @@
         </h1>
 
         {{-- I will have the section of Auth --}}
-        <div class="w-full p-5 space-y-2 border rounded-lg">
-            <h1 class="text-xl">Two Auth</h1>
-            <p class="ps-5 text-black/50">You can activate this feature to upgrade the level of security of your
-                account</p>
-            <div class="inline-flex items-center justify-center w-full">
-                <livewire:utils.toggle size="sm" />
+        <form method="post"
+              action="/user/two-factor-authentication"
+        >
+            @csrf
+            <div class="w-full p-5 space-y-2 border rounded-lg">
+
+                <div class="w-full inline-flex justify-between">
+                    <h1 class="text-xl">Two Auth</h1>
+                    <div class="pl-5">
+                        @if($isTwoOtpSet)
+                            <x-form-button value="Save changes" type="submit"/>
+                        @endif
+                    </div>
+
+                </div>
+                <p class="ps-5 text-black/50">You can activate this feature to upgrade the level of security of your
+                    account</p>
+                <div class="inline-flex items-center justify-center w-full">
+                    <livewire:utils.toggle size="sm" name="TwoOtp"/>
+                </div>
+
+
+                @if(\auth()->user()->two_factor_secret)
+                    <div>
+                        {!! auth()->user()->twoFactorQrCodeSvg() !!}
+                    </div>
+                @endif
             </div>
-        </div>
+        </form>
+
+
         <form wire:submit.prevent="updatePassword">
             @csrf
             {{-- I will have the section of Reset password --}}
@@ -25,7 +48,7 @@
                     </div>
                     <div class="pl-5">
                         @if($isValid)
-                        <x-form-button value="Save changes" type="submit" />
+                            <x-form-button value="Save changes" type="submit"/>
                         @endif
                     </div>
 
@@ -35,8 +58,9 @@
 
                 {{-- I will need to add the filed old password --}}
                 <x-form-input id="oldPassword" name="oldPassword" value="" title="Old password"
-                    placeholder="Insert your old password" input-type="password" :is-require="true" :set-icon="false"
-                    model-type-live="blur" />
+                              placeholder="Insert your old password" input-type="password" :is-require="true"
+                              :set-icon="false"
+                              model-type-live="blur"/>
 
                 {{-- I will nedd to add two other filed for new password and confirm password --}}
 
@@ -46,11 +70,13 @@
                 THE SET DISABLE TO FALS INTO THE COMP INPUT FORM
                 --}}
                 <x-form-input id="newPassword" name="newPassword" title="New password"
-                    placeholder="Insert your new password" input-type="password" :set-disable="!$isCurrentPasswordValid"
-                    :is-require="true" :set-icon="false" model-type-live="blur" />
+                              placeholder="Insert your new password" input-type="password"
+                              :set-disable="!$isCurrentPasswordValid"
+                              :is-require="true" :set-icon="false" model-type-live="blur"/>
                 <x-form-input id="confirmPassword" name="confirmPassword" title="Confirm password"
-                    placeholder="Type your new password" input-type="password" :set-disable="!$isCurrentPasswordValid"
-                    :is-require="true" :set-icon="false" model-type-live="blur" />
+                              placeholder="Type your new password" input-type="password"
+                              :set-disable="!$isCurrentPasswordValid"
+                              :is-require="true" :set-icon="false" model-type-live="blur"/>
             </div>
         </form>
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use http\Client\Curl\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -15,8 +16,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 class Settings extends Component
 {
 
-    public $TwoOtp = false;
 
+    #[Validate('required|bool')]
+    public $TwoOtp = true;
 
     #[Validate("required")]
     public $oldPassword;
@@ -30,15 +32,24 @@ class Settings extends Component
 
     public $isValid = false;
 
+    public $isTwoOtpSet = false;
 
+
+    public function mount(){
+        $this->TwoOtp = \auth()->user()->two_factor_secret;
+    }
     //  This for the reload and check all the field
     public function updating($props): void
     {
         $this->validateOnly($props);
     }
 
-    public function updated($props): void
+    public function updated($props,$value): void
     {
+        Log::error("log",[
+            "props"=>$props,
+            "value"=>$value
+        ]);
         $this->isValid = $this->isUpdateButtonVisible();
     }
 
@@ -54,6 +65,10 @@ class Settings extends Component
         }
         $this->isValid = $this->isUpdateButtonVisible();
 
+    }
+    public function updatedTwoOtp($value): void
+    {
+        $this->isTwoOtpSet = !$this->isTwoOtpSet;
     }
 
 

@@ -4,6 +4,7 @@ namespace App\Livewire\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Features;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
@@ -30,6 +31,12 @@ class Login extends Component
             // Regenerate the session to prevent session fixation attacks
             $request->session()->regenerate();
 
+            // Check if two-factor authentication is enabled and required
+            if (Features::enabled(Features::twoFactorAuthentication()) &&
+                Auth::user()->two_factor_secret) {
+                // Handle the 2FA process
+                return redirect()->route('two-factor.login');
+            }
 
             $this->dispatch
             ('alert',

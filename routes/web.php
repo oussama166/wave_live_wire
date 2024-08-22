@@ -21,6 +21,7 @@ use App\Livewire\Admin\Settings\VacationType as AdminSettingsVacationTypes;
 use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\ResetPassword;
+use App\Livewire\Auth\TwoFactorChallenge;
 use App\Livewire\User\Dashboard as UserDashboard;
 use App\Livewire\User\Profile;
 use App\Livewire\User\Settings;
@@ -40,6 +41,14 @@ Route::middleware(['layout-guest', 'guest'])->group(function () {
     Route::get('/reset-password/{token}', ResetPassword::class)->name(
         'Auth.ResetPassword'
     );
+
+});
+
+
+
+Route::middleware(['layout-guest','auth'])->group(function () {
+    Route::get('/two-factor-challenge', TwoFactorChallenge::class)->name('two-factor.login');
+
 });
 
 
@@ -72,6 +81,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // THIS IS THE ROUTES FOR THE AUTHENTICATION PAGES IS ACCESSIBLE FOR GUEST WITH AUTHENTICATION WITH THE ROLE USER
 Route::middleware(['auth', 'role:user'])->group(function () {
+
+
     Route::get('/user-dashboard', UserDashboard::class)->name('User.Dashboard');
     Route::get('/profile', Profile::class)->name('User.Profile');
     Route::get('/settings',Settings::class)->name('User.Settings');

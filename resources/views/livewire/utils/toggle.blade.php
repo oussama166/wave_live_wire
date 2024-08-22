@@ -7,7 +7,7 @@
 @endphp
 
 <label class="inline-flex items-center mb-5 cursor-pointer">
-    <input type="checkbox" value="" class="sr-only peer">
+    <input type="checkbox" value="" class="sr-only peer" wire:model.live="$parent.{{$name}}" checked>
     <div class="{{$Varaiants[$size]}}"></div>
     <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Toggle me to enable the two auth</span>
 </label>
