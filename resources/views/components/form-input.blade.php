@@ -65,7 +65,7 @@
             @endif
 
             @if(@$inputType == "password")
-                <input :type="showPassword ? 'text' : 'password'" id="{{ $id }}" name="{{ $name }}"
+                <input wire:loading.attr="disabled" :type="showPassword ? 'text' : 'password'" id="{{ $id }}" name="{{ $name }}"
                        placeholder="{{ $placeholder }}" value="{{ $value }}"
                        class="{{ $inputStyle }} {{ $inputClass }} {{ $setLeftIcon ? 'pl-12' : '' }}" {{ $setDisable
                 ? 'disabled' : '' }} {{ $setFocus ? 'autofocus' : '' }} {{ $isRequire ? 'required' : '' }}
@@ -125,60 +125,6 @@
                 value="{{$value}}"
                 title="{{$placeholder}}"
                 />
-
-                @elseif($inputType == "pin")
-
-                    <div class="max-w-sm mx-auto">
-                        <div class="flex mb-2 space-x-2 rtl:space-x-reverse">
-                            <div>
-                                <label for="code-1" class="sr-only">First code</label>
-                                <input type="text" maxlength="1" data-focus-input-init data-focus-input-next="code-2" id="code-1" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                            </div>
-                            <div>
-                                <label for="code-2" class="sr-only">Second code</label>
-                                <input type="text" maxlength="1" data-focus-input-init data-focus-input-prev="code-1" data-focus-input-next="code-3" id="code-2" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                            </div>
-                            <div>
-                                <label for="code-3" class="sr-only">Third code</label>
-                                <input type="text" maxlength="1" data-focus-input-init data-focus-input-prev="code-2" data-focus-input-next="code-4" id="code-3" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                            </div>
-                            <div>
-                                <label for="code-4" class="sr-only">Fourth code</label>
-                                <input type="text" maxlength="1" data-focus-input-init data-focus-input-prev="code-3" data-focus-input-next="code-5" id="code-4" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                            </div>
-                            <div>
-                                <label for="code-5" class="sr-only">Fifth code</label>
-                                <input type="text" maxlength="1" data-focus-input-init data-focus-input-prev="code-4" data-focus-input-next="code-6" id="code-5" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                            </div>
-                            <div>
-                                <label for="code-6" class="sr-only">Sixth code</label>
-                                <input type="text" maxlength="1" data-focus-input-init data-focus-input-prev="code-5" id="code-6" class="block w-9 h-9 py-3 text-sm font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required />
-                            </div>
-                        </div>
-                        <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Please introduce the 6 digit code we sent via email.</p>
-                    </div>
-                <script>
-                    // use this simple function to automatically focus on the next input
-                    function focusNextInput(el, prevId, nextId) {
-                        if (el.value.length === 0) {
-                            if (prevId) {
-                                document.getElementById(prevId).focus();
-                            }
-                        } else {
-                            if (nextId) {
-                                document.getElementById(nextId).focus();
-                            }
-                        }
-                    }
-
-                    document.querySelectorAll('[data-focus-input-init]').forEach(function(element) {
-                        element.addEventListener('keyup', function() {
-                            const prevId = this.getAttribute('data-focus-input-prev');
-                            const nextId = this.getAttribute('data-focus-input-next');
-                            focusNextInput(this, prevId, nextId);
-                        });
-                    });
-                </script>
 
                 @else
                 <input

@@ -26,9 +26,9 @@ class Edit extends Component
     public $user;
 
     public userEdit $form;
-    #[Validate('required')]
+
     public editSalary $formSalary;
-    public position $formPosition;
+
 
 
     #[Validate("required|numeric")]
@@ -113,7 +113,7 @@ class Edit extends Component
 
     public function changeSalaryInformation(): void
     {
-        echo "hey";
+        $this->formSalary->submitChnangeSalary();
     }
 
     public function updated($props, $value): void
@@ -180,12 +180,10 @@ class Edit extends Component
         } elseif (Str::contains($model, 'formSalary.')) {
             $dataSet = str_replace('formSalary.', '', $model);
             $this->formSalary->{$dataSet} = $value;
-        } elseif (Str::contains($model, 'formPosition.')) {
-            $dataSet = str_replace('formPosition.', '', $model);
-            $this->formPosition->{$dataSet} = $value;
         }
 
     }
+
 
 
 }

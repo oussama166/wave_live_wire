@@ -33,7 +33,7 @@
                 "
                     aria-checked="{{ ($active == '/admin/users' || Str::contains($active, '/admin/users')) ? 'true' : 'false' }}">
                     <x-heroicon-o-user-group class="w-7" />
-                    Profiles
+                    Employers
                 </li>
             </a>
 

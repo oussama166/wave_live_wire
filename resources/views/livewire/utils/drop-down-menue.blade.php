@@ -18,16 +18,22 @@
                 <span>Edit</span>
             </div>
             <div
-                class="relative flex justify-between w-full cursor-pointer select-none items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none">
+                class="relative flex justify-between w-full cursor-pointer select-none items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none"
+             wire:click="enable({{$keyValue}})"
+            >
                 <span>Enable</span>
             </div>
             <div
-                class="relative flex justify-between w-full cursor-pointer select-none items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none">
+                class="relative flex justify-between w-full cursor-pointer select-none items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none"
+                wire:click="disable({{$keyValue}})"
+            >
                 <span>Disable</span>
             </div>
             <div
-                class="relative flex justify-between w-full cursor-pointer select-none items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none">
-                <span>Regenarate password</span>
+                class="relative flex justify-between w-full cursor-pointer select-none items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none"
+                wire:click="regeneratePassword({{$keyValue}})"
+            >
+                <span>Regenerate password</span>
             </div>
         </div>
     </div>

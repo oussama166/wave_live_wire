@@ -26,9 +26,38 @@
         </div>
     </section>
     <section class="w-full flex gap-5 flex-wrap">
-        <div class="w-[35vw] h-[50vh] bg-white border rounded-lg p-5">
+        <div class="w-[35vw] h-[50vh] bg-white border border-gray-300 rounded-lg p-5 shadow-lg">
             <canvas wire:ignore id="myChart1"></canvas>
         </div>
+        <div class="w-[35vw] h-[50vh] bg-white border border-gray-300 rounded-lg shadow-lg overflow-y-auto">
+            <h1 class="text-xl font-bold text-primary-600 p-4 bg-white sticky top-0 z-10">
+                Upcoming Two-Month Holiday Schedule
+            </h1>
+            <div class="space-y-4 p-4 pt-0">
+                @forelse($dataSetNextHolidays as $holiday)
+                    <div class="p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow flex justify-between items-center">
+                        <div class="max-w-[170px] w-full text-lg font-medium text-gray-800 truncate whitespace-nowrap overflow-hidden">
+                            {{$holiday->name}}
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            {{$holiday->date}}
+                        </div>
+                        <div class="text-sm text-blue-600">
+                            {{$holiday->days_number}} Days
+                        </div>
+                        <div class="text-sm {{$holiday->status === 'national' ? 'text-green-600' : 'text-red-600'}}">
+                            {{$holiday->status}}
+                        </div>
+                    </div>
+                @empty
+                    <div class="w-full p-4 text-center text-gray-500">
+                        No holiday schedule for next month
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+
     </section>
 </div>
 
@@ -45,7 +74,7 @@
         initializeChart(ctx1, {
             labels:@json($dataSet->labels),
             datasets: [{
-                label: 'Average Salary',
+                label: 'Employer Salary (Average)',
                 data: @json($dataSet->data),
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.5)',
@@ -92,7 +121,7 @@
         initializeChart(ctx1, {
             labels:@json($dataSet->labels),
             datasets: [{
-                label: 'Average Salary',
+                label: 'Employer Salary (Average)',
                 data: @json($dataSet->data),
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.5)',

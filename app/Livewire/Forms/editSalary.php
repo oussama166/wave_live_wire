@@ -8,7 +8,7 @@ use Livewire\Form;
 class editSalary extends Form
 {
     #[Validate("required|numeric")]
-    public $salary;
+    public $newSalary;
     #[Validate("required|numeric")]
     public $startDate;
     #[Validate("required|string|max:255")]
@@ -19,8 +19,4 @@ class editSalary extends Form
         dd($this->all());
     }
 
-    public function updated()
-    {
-        dd($this->all());
-    }
 }

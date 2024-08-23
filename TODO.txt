@@ -4,13 +4,3 @@
     2. take the info of the history for e.g : Salary historizes from the audit table
 
 
-
-
-
-
-
-
-
-
-
-
