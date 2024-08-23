@@ -94,7 +94,7 @@ class Edit extends Component
                 ]);
                 \DB::commit();
                 // notify the user by the email that he's request was rejected
-                $this->user->notify(new CongeInfo("Rejected request", $this->leaves, "Approved"));
+                $this->user->notify(new CongeInfo("Approved request", $this->leaves, "Approved"));
                 $this->dispatch("alert",
                     type: "success",
                     title: "Success",

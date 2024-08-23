@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /**
  * This function helps to get the number of days excluding holidays or weekends.
  *
@@ -52,3 +54,17 @@ function detect_holiday(DateTime $start, DateTime $end, array $holidays = []): i
 
     return $days;
 }
+
+
+
+function timeAgo($timestamp)
+{
+    // Convert the timestamp to a Carbon instance
+    $dateTime = Carbon::parse($timestamp);
+
+    // Calculate the difference from now
+    $timeAgo = $dateTime->diffForHumans();
+
+    return $timeAgo;
+}
+

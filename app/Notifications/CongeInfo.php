@@ -33,7 +33,7 @@ class CongeInfo extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail','database'];
     }
 
     /**
@@ -93,9 +93,23 @@ class CongeInfo extends Notification
      * @return array<string, mixed>
      */
     public function toArray(object $notifiable): array
-    {
+    {$statusMessage = '';
+
+        if ($this->type == "Pending") {
+            $statusMessage = 'Your vacation request is pending approval.';
+        } elseif ($this->type == "Approved") {
+            $statusMessage = 'Your vacation request has been approved.';
+        } else {
+            $statusMessage = 'Your vacation request has been rejected.';
+        }
+
         return [
-            //
+            'typeTrans' => $this->typeTrans,
+            'status' => $this->type,
+            'message' => $statusMessage,
+            'leavePeriod' => $this->leaves["start_at"] . ' to ' . $this->leaves["end_at"],
+            'userId' => $notifiable->id, // Assuming the notifiable is a user
+            'leavesId' => $this->leaves["id"], // Assuming the leave has an ID
         ];
     }
 }

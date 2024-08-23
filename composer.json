@@ -17,10 +17,12 @@
         "fahlisaputra/laravel-minify": "^1.1",
         "laravel/fortify": "^1.24",
         "laravel/framework": "^11.9",
+        "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "mansoor/blade-lets-icons": "^1.0",
         "owenvoke/blade-fontawesome": "^2.6",
+        "pusher/pusher-php-server": "^7.2",
         "realrashid/sweet-alert": "^7.2",
         "ryangjchandler/blade-tabler-icons": "^2.3",
         "saade/blade-iconsax": "^1.2"
