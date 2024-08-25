@@ -2,5 +2,10 @@
 + The table Salary in the Salary section into edit we will need to
     1. make the admin schedule salary change at special date in the next days
     2. take the info of the history for e.g : Salary historizes from the audit table
-
+- Make the user notify when the mail is send to him
+    1. Use the UserNotification Event
+    2. Use the ListenerToUserNotification Listener
+    3. Try to have this notification without refresh the page
+    
+    
 

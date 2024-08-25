@@ -64,3 +64,6 @@ Livewire.hook('element.initialized',() => {
         window.Alpine.initializeComponent(el);
     })
 });
+
+
+

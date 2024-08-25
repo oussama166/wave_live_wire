@@ -90,13 +90,13 @@ class Dashboard extends Component
         // Get holidays for the next two months
         $holidayList = \App\Models\Holiday::query()
             ->whereYear('date', $getYear)
-            ->where(function($query) use ($getMonth) {
-                $query->whereMonth('date', $getMonth)
+            ->where(function ($query) use ($getMonth) {
+                $query
+                    ->whereMonth('date', $getMonth)
                     ->orWhereMonth('date', $getMonth + 1)
                     ->orWhereMonth('date', $getMonth + 2);
             })
             ->get();
         return $holidayList;
     }
-
 }

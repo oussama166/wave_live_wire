@@ -2,16 +2,19 @@
 
 namespace App\Notifications;
 
+use App\Events\userNotification;
 use App\Models\Leaves;
 use App\Models\LeaveStatus;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class CongeInfo extends Notification
 {
-    use Queueable;
+
 
     /**
      * Create a new notification instance.
@@ -23,7 +26,6 @@ class CongeInfo extends Notification
     {
         $this->leaves = $leaves;
         $this->typeTrans = $typeTrans;
-
     }
 
     /**
@@ -41,6 +43,8 @@ class CongeInfo extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+         // Trigger the event when the email is being sent
+        event(new userNotification($notifiable->id, $this->getNotificationMessage()));
         \Log::info("Info from the email : ",[
             "leaves : " =>$this->leaves ,
             "typeTrans" => $this->typeTrans,
@@ -112,4 +116,17 @@ class CongeInfo extends Notification
             'leavesId' => $this->leaves["id"], // Assuming the leave has an ID
         ];
     }
+
+    private function getNotificationMessage():string
+    {
+        if ($this->type == "Pending") {
+            return 'Your vacation request is pending approval.';
+        } elseif ($this->type == "Approved") {
+            return 'Your vacation request has been approved.';
+        } else {
+            return 'Your vacation request has been rejected.';
+        }
+    }
+
+
 }

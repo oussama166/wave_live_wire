@@ -11,8 +11,11 @@ use Carbon\Carbon;
  * @return int The number of working days.
  * @throws Exception
  */
-function detect_holiday(DateTime $start, DateTime $end, array $holidays = []): int
-{
+function detect_holiday(
+    DateTime $start,
+    DateTime $end,
+    array $holidays = []
+): int {
     // Create DateTimeImmutable instances from DateTime objects
     $startDate = DateTimeImmutable::createFromMutable($start);
     $endDate = DateTimeImmutable::createFromMutable($end);
@@ -29,13 +32,12 @@ function detect_holiday(DateTime $start, DateTime $end, array $holidays = []): i
 
     // Merge passed holidays with the fetched holidays
 
-
     // Create an iterable period of dates (P1D equates to 1 day)
-    $period = new DatePeriod($startDate, new DateInterval('P1D'), $endDate->modify('+1 day'));
-
-
-    echo $endDate->modify('+1 day')->format('Y-m-d');
-    echo 'days number -> '.$days;
+    $period = new DatePeriod(
+        $startDate,
+        new DateInterval('P1D'),
+        $endDate->modify('+1 day')
+    );
 
     foreach ($period as $dt) {
         $curr = $dt->format('D');
@@ -55,8 +57,6 @@ function detect_holiday(DateTime $start, DateTime $end, array $holidays = []): i
     return $days;
 }
 
-
-
 function timeAgo($timestamp)
 {
     // Convert the timestamp to a Carbon instance
@@ -67,4 +67,3 @@ function timeAgo($timestamp)
 
     return $timeAgo;
 }
-

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Utils;
 
+use App\Models\User;
 use Livewire\Component;
 
 class HeaderLogin extends Component
@@ -34,5 +35,8 @@ class HeaderLogin extends Component
         auth()->logout();
         $this->dispatch('toast', type : 'success', message : 'Logout successfully!');
         return redirect("/");
+    }
+    public function updateBalance(){
+        $this->balance = User::find(auth()->id())->balance;
     }
 }

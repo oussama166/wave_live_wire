@@ -32,14 +32,16 @@ class Request extends Component
 
     public $vacationInfo = null;
 
-
     public function createVacationRequest()
     {
         // Validate the request data
         $this->validate();
 
         // Calculate the amount of days for the vacation request
-        $amount = detect_holiday(new DateTime($this->startAt), new DateTime($this->endAt));
+        $amount = detect_holiday(
+            new DateTime($this->startAt),
+            new DateTime($this->endAt)
+        );
 
         // Get the user instance
         $user = auth()->user();
@@ -54,16 +56,18 @@ class Request extends Component
                     'start_at' => $this->startAt,
                     'end_at' => $this->endAt,
                     'description' => $this->description,
-                    'leaves_days'=>$amount,
-                    'vacation_type_id' => $this->vacationInfo["id"],
+                    'leaves_days' => $amount,
+                    'vacation_type_id' => $this->vacationInfo['id'],
                     'user_id' => $user->id,
-                    'leave_status_id' => LeaveStatus::query()->where('label','Like','Pending')->first()->id,
+                    'leave_status_id' => LeaveStatus::query()
+                        ->where('label', 'Pending')
+                        ->first()->id,
                 ]);
 
                 if ($leave) {
                     // Update the user's balance
                     $user->update([
-                        'balance' => \DB::raw('balance - ' . $amount)
+                        'balance' => $user->balance - $amount,
                     ]);
 
                     // Commit the transaction
@@ -71,19 +75,25 @@ class Request extends Component
 
                     // Dispatch success alert
                     $this->dispatch('alert',
-                        type: 'success',
-                        title: 'Vacation Time',
-                        text: 'Your vacation request has been created successfully',
-                        confirmSet: true,
-                        timer: 3500
+                        type : 'success',
+                        title : 'Vacation Time',
+                        text :
+                            'Your vacation request has been created successfully',
+                        confirmSet : true,
+                        timer : 3500,
                     );
-                    $user->notify(new CongeInfo('Vacation request',$leave->getOriginal(),"Pending"));
+
+                    // Notify the user
+                    $user->notify(
+                        new CongeInfo(
+                            'Vacation request',
+                            $leave->getAttributes(),
+                            'Pending'
+                        )
+                    );
+
                     // Redirect to the user dashboard
-                    // $this->redirectRoute('User.Dashboard', navigate: true);
-                    redirect()->route('User.Dashboard');
-
-
-
+                    return redirect()->route('User.Dashboard');
                 } else {
                     throw new \Exception('Failed to create vacation request.');
                 }
@@ -92,38 +102,43 @@ class Request extends Component
                 \DB::rollBack();
 
                 // Log error and dispatch error alert
-                Log::error('Failed to create vacation request: ' . $exception->getMessage());
+                \Log::error(
+                    'Failed to create vacation request: ' .
+                        $exception->getMessage()
+                );
                 $this->dispatch('alert',
-                    type: 'error',
-                    title: 'Vacation Time',
-                    text: 'Something went wrong while creating your vacation request',
-                    confirm: true,
-                    confirmSet: false
+                    type : 'error',
+                    title : 'Vacation Time',
+                    text :
+                        'Something went wrong while creating your vacation request',
+                    confirm : true,
+                    confirmSet : false,
                 );
             }
         } else {
             // Dispatch error alert if balance is insufficient
             $this->dispatch('alert',
-                type: 'error',
-                title: 'Vacation Time',
-                text: 'The requested time off exceeds your available balance.',
-                confirm: true,
-                confirmSet: false,
-                timer: 3500
+            type : 'error',
+            title : 'Vacation Time',
+            text :
+'The requested time off exceeds your available balance.',
+            confirm : true,
+            confirmSet : false,
+            timer : 3500,
             );
         }
     }
 
-
     public function mount()
     {
-
-        $this->vacationTypes = VacationType::all()->map(function($vacationType) {
-            return [
-                'id' => (string) $vacationType->id, // Ensure ID is a string
-                'label' => $vacationType->label,    // Adjust according to your attribute
-            ];
-        })->toArray();
+        $this->vacationTypes = VacationType::all()
+            ->map(function ($vacationType) {
+                return [
+                    'id' => (string) $vacationType->id, // Ensure ID is a string
+                    'label' => $vacationType->label, // Adjust according to your attribute
+                ];
+            })
+            ->toArray();
     }
 
     #[Title('Vacation Request')]
@@ -143,8 +158,9 @@ class Request extends Component
 
     public function updatedSelectArea($value)
     {
-        $this->vacationInfo = VacationType::query()->where('label', $value)->first()->getOriginal();
+        $this->vacationInfo = VacationType::query()
+            ->where('label', $value)
+            ->first()
+            ->getOriginal();
     }
-
-
 }

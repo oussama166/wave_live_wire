@@ -1,58 +1,56 @@
-<div class="content font-Roboto space-y-4">
-    <section class="w-full inline-flex justify-between">
-        {{--    Salut   --}}
+<div class="space-y-4 content font-Roboto">
+    <section class="inline-flex justify-between w-full">
+        {{-- Salut --}}
         <div class="space-y-3">
-            <h1
-                class="text-2xl font-semibold text-wave-primary"
-            >{{$salute}}</h1>
-            <p
-                class="text-sm text-wave-disable"
-            >You have {{$pendingRequest}} leave request pending</p>
+            <h1 class="text-2xl font-semibold text-wave-primary" y>{{$salute}}</h1>
+            <p l class="text-sm text-wave-disable">You have {{$pendingRequest}} leave request pending</p>
 
         </div>
-        {{--   Time    --}}
+        {{-- Time --}}
         <div
-            class="w-full max-w-xs bg-white rounded-lg py-2 px-6 inline-flex items-center justify-between gap-5 border border-wave-disable/40">
+            class="inline-flex items-center justify-between w-full max-w-xs gap-5 px-6 py-2 bg-white border rounded-lg border-wave-disable/40">
             <div class="space-y-1">
                 <p class="text-sm text-wave-disable">Current Time</p>
                 <h1 class="text-lg font-normal text-wave-primary">{{date("j M Y, H:i A")}}</h1>
             </div>
             <div class="flex items-center justify-center">
-                <x-bi-clock-history class="h-10 w-10 text-wave-primary"/>
+                <x-bi-clock-history class="w-10 h-10 text-wave-primary" />
 
             </div>
 
 
         </div>
     </section>
-    <section class="w-full flex gap-5 flex-wrap">
+    <section class="flex flex-wrap w-full gap-5">
         <div class="w-[35vw] h-[50vh] bg-white border border-gray-300 rounded-lg p-5 shadow-lg">
             <canvas wire:ignore id="myChart1"></canvas>
         </div>
         <div class="w-[35vw] h-[50vh] bg-white border border-gray-300 rounded-lg shadow-lg overflow-y-auto">
-            <h1 class="text-xl font-bold text-primary-600 p-4 bg-white sticky top-0 z-10">
+            <h1 class="sticky top-0 z-10 p-4 text-xl font-bold bg-white text-primary-600">
                 Upcoming Two-Month Holiday Schedule
             </h1>
-            <div class="space-y-4 p-4 pt-0">
+            <div class="p-4 pt-0 space-y-4">
                 @forelse($dataSetNextHolidays as $holiday)
-                    <div class="p-4 bg-gray-50 rounded-lg shadow-sm hover:shadow-md transition-shadow flex justify-between items-center">
-                        <div class="max-w-[170px] w-full text-lg font-medium text-gray-800 truncate whitespace-nowrap overflow-hidden">
-                            {{$holiday->name}}
-                        </div>
-                        <div class="text-sm text-gray-600">
-                            {{$holiday->date}}
-                        </div>
-                        <div class="text-sm text-blue-600">
-                            {{$holiday->days_number}} Days
-                        </div>
-                        <div class="text-sm {{$holiday->status === 'national' ? 'text-green-600' : 'text-red-600'}}">
-                            {{$holiday->status}}
-                        </div>
+                <div
+                    class="flex items-center justify-between p-4 transition-shadow rounded-lg shadow-sm bg-gray-50 hover:shadow-md">
+                    <div
+                        class="max-w-[170px] w-full text-lg font-medium text-gray-800 truncate whitespace-nowrap overflow-hidden">
+                        {{$holiday->name}}
                     </div>
+                    <div class="text-sm text-gray-600">
+                        {{$holiday->date}}
+                    </div>
+                    <div class="text-sm text-blue-600">
+                        {{$holiday->days_number}} Days
+                    </div>
+                    <div class="text-sm {{$holiday->status === 'national' ? 'text-green-600' : 'text-red-600'}}">
+                        {{$holiday->status}}
+                    </div>
+                </div>
                 @empty
-                    <div class="w-full p-4 text-center text-gray-500">
-                        No holiday schedule for next month
-                    </div>
+                <div class="w-full p-4 text-center text-gray-500">
+                    No holiday schedule for next month
+                </div>
                 @endforelse
             </div>
         </div>
