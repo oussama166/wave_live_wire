@@ -8,10 +8,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\View\View;
+use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
+use Laravel\Fortify\Actions\EnableTwoFactorAuthentication;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
+
+use function PHPUnit\Framework\isNull;
 
 class Settings extends Component
 {
@@ -36,7 +40,7 @@ class Settings extends Component
 
 
     public function mount(){
-        $this->TwoOtp = \auth()->user()->two_factor_secret;
+        $this->TwoOtp = is_null(\auth()->user()->two_factor_secret)?false:true;
     }
     //  This for the reload and check all the field
     public function updating($props): void
@@ -65,6 +69,19 @@ class Settings extends Component
         }
         $this->isValid = $this->isUpdateButtonVisible();
 
+    }
+    public function toggleTwoFactorAuthentication()
+    {
+        Log::debug("message",[
+            "TwoOtp"=>$this->TwoOtp
+        ]);
+        if (!$this->TwoOtp) {
+            app(DisableTwoFactorAuthentication::class)(Auth::user());
+        } else {
+            app(EnableTwoFactorAuthentication::class)(Auth::user());
+        }
+
+        $this->isTwoOtpSet = !$this->isTwoOtpSet;
     }
     public function updatedTwoOtp($value): void
     {
