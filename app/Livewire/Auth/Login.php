@@ -25,8 +25,9 @@ class Login extends Component
             'email' => $this->email,
             'password' => $this->password,
         ];
+        //
         // Attempt to authenticate the user with the provided credentials
-        if (auth()->attempt($credentials))
+        if (auth()->attempt($credentials) && Auth::user()->enable_status !== 0)
         {
             // Regenerate the session to prevent session fixation attacks
             $request->session()->regenerate();

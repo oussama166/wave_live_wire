@@ -37,8 +37,8 @@ export function initGsap() {
 
     ScrollTrigger.create({
         trigger: ".content",
-        start: "top-=100px top",
-        end: "top-=100px bottom",
+        start: "top-=200px top",
+        end: "top-=200px bottom",
         onUpdate: (self) => {
             if (self.direction > 0) {
                 tween.play();
@@ -50,7 +50,7 @@ export function initGsap() {
                 tween3.reverse();
             }
         },
-        markers: false,
+        markers: true,
     });
 }
 
