@@ -4,7 +4,6 @@ namespace App\Livewire\Utils;
 
 use Auth;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class Notification extends Component
@@ -26,8 +25,12 @@ class Notification extends Component
         return view('livewire.utils.notification');
     }
 
-    public function markAsRead($notification)
+    public function markRead($noti)
     {
-        $notification->markAsRead();
+        $notificationId = $noti['id'];
+        Auth::user()
+            ->notifications->where('id', $notificationId)
+            ->first()
+            ->markAsRead();
     }
 }

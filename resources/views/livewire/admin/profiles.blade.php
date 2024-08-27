@@ -2,9 +2,9 @@
     <section class="w-full p-5 space-y-4 bg-white rounded-lg font-Mulish">
         <div class="inline-flex items-center justify-end w-full">
             {{-- Add new User button --}}
-            <x-form-button value="Add User"
+            <x-form-button tag='link' value="Add User"
                 custom-class="max-w-[200px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out"
-                wire:click="redirectToCreate" />
+                href="/admin/users/create" />
         </div>
 
         <livewire:utils.data-table type="static" :modelClass="App\Models\User::class"

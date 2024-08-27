@@ -54,13 +54,12 @@ class userAdd extends Form
     #[Validate('required')]
     public $position;
 
-
     public function createUser()
     {
         $this->validate();
-        Log::info('User created', $this->toArray());
+        // Log::info('User created', $this->toArray());
         // save in database
-        try{
+        try {
             $user = new User();
             $user->name = $this->name;
             $user->lastname = $this->lastname;
@@ -74,24 +73,33 @@ class userAdd extends Form
             $user->phone = $this->phone;
             $user->adresse = $this->adresse;
             $user->balance = $this->balance;
-            $user->nationality_id = Nationality::query()->where("label","like",$this->nationality)->get()->first()->id;
-            $user->experience_level_id = ExperienceLevels::query()->where("label","like",$this->experience_level)->get()->first()->id;
-            $user->family_status_id = FamilyStatus::query()->where("label","like",$this->family_status)->get()->first()->id;
-            $user->position_id = Position::query()->where("label","like",$this->position)->get()->first()->id;
-            $user->contract_id = Contracts::query()->where("label","like",$this->contract)->get()->first()->id;
-            $user->password = "password12345";
+            $user->enable_status = true;
+            $user->nationality_id = Nationality::query()
+                ->where('label', 'like', $this->nationality)
+                ->get()
+                ->first()->id;
+            $user->experience_level_id = ExperienceLevels::query()
+                ->where('label', 'like', $this->experience_level)
+                ->get()
+                ->first()->id;
+            $user->family_status_id = FamilyStatus::query()
+                ->where('label', 'like', $this->family_status)
+                ->get()
+                ->first()->id;
+            $user->position_id = Position::query()
+                ->where('label', 'like', $this->position)
+                ->get()
+                ->first()->id;
+            $user->contract_id = Contracts::query()
+                ->where('label', 'like', $this->contract)
+                ->get()
+                ->first()->id;
+            $user->password = 'password12345';
             $user->save();
             $this->reset();
-            $user->notify(new UserCreated($user));
-        }catch(\Exception $e){
+            // $user->notify(new UserCreated($user));
+        } catch (\Exception $e) {
             Log::error('Error creating user', $e->getMessage());
         }
     }
-
-
-
-
-
-
-
 }

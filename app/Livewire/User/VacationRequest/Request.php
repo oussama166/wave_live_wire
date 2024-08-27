@@ -93,7 +93,7 @@ class Request extends Component
                     );
 
                     // Redirect to the user dashboard
-                    return redirect()->route('User.Dashboard');
+                    return redirect()->route('User.VacationRequest.List');
                 } else {
                     throw new \Exception('Failed to create vacation request.');
                 }

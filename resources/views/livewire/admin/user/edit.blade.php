@@ -40,6 +40,12 @@
             <!-- Tab Content 1 -->
             <div class="overflow-hidden border shadow-sm rounded-xl bg-card text-neutral-900">
 
+                <div class="w-full min-w-full">
+                    <x-form-button tag="link" value="Back to employers list"
+                        custom-class="max-w-[200px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out"
+                        href="/admin/vacationRequest/list" />
+
+                </div>
                 <form method="post" class='flex-row flex-wrap w-full gap-5 bg-white'
                     wire:submit.prevent="changeBasicInformation">
                     @csrf

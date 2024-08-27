@@ -33,11 +33,7 @@ function detect_holiday(
     // Merge passed holidays with the fetched holidays
 
     // Create an iterable period of dates (P1D equates to 1 day)
-    $period = new DatePeriod(
-        $startDate,
-        new DateInterval('P1D'),
-        $endDate->modify('+1 day')
-    );
+    $period = new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
 
     foreach ($period as $dt) {
         $curr = $dt->format('D');

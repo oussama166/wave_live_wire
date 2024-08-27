@@ -86,5 +86,13 @@ class DropDownMenue extends Component
         $user = User::query()->whereId($id)->first();
 
         $user->update(['password' => 'password123456']);
+
+        $this->dispatch(
+            'toast',
+            type: 'success',
+            title: 'Regenerate password',
+            text: 'The password has been reset to password123456'
+        );
+
     }
 }

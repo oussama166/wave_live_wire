@@ -59,9 +59,7 @@ document.addEventListener("livewire:navigated", () => {
     initCalendar();
     InstanceDatePicker();
 });
-doument.addEventListener("livewire:load", () => {
-    initGsap();
-});
+
 Livewire.hook('element.initialized',() => {
     window.Alpine.discoverUninitializedComponents((el) => {
         window.Alpine.initializeComponent(el);

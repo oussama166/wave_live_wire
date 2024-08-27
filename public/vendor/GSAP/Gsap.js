@@ -50,7 +50,7 @@ export function initGsap() {
                 tween3.reverse();
             }
         },
-        markers: true,
+        markers: false,
     });
 }
 

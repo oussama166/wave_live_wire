@@ -80,7 +80,7 @@
                             <p class="w-full text-sm text-wave-disable">{{timeAgo($notification->created_at)}}</p>
                         </div>
                         @if($notification->read_at == null)
-                        <x-phosphor-check-circle-light class="w-5 h-5" wire:click="markAsRead({{ $notification }})" />
+                        <x-phosphor-check-circle-light class="w-5 h-5" wire:click="markRead({{ $notification }})" />
                         @else
                         <x-phosphor-check-circle-fill class="w-5 h-5 text-green-500" />
                         @endif
