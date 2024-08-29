@@ -1,5 +1,5 @@
-<section class="max-w-[77vw] w-full max-h-[80px] h-full flex justify-between mt-10 px-10  fixed top-10 z-10"
-    id="header">
+<section class="max-w-[77vw] w-full max-h-[80px] h-full flex justify-between mt-10 px-10  fixed top-10 z-10" id="header"
+    wire:ignore>
     {{-- THIS IS FOR THE --}}
     <div id="header-info" class="flex flex-col gap-1 py-2">
         <div class="text-sm font-normal tracking-wide text-wave-disable">
@@ -25,19 +25,47 @@
             <span class="text-black/40">{{ $name }}</span>
     </div>
 
-    <form method="POST" wire:submit='logout'>
-        @csrf
-        <button type="submit" class="flex items-center justify-center p-3 bg-white rounded-full cursor-pointer">
-            <x-tabler-logout class="w-5 text-[#aab4d4] text-lg" />
-        </button>
-    </form>
-    </div>
 
+    <button type="submit" class="flex items-center justify-center p-3 bg-white rounded-full cursor-pointer"
+        wire:click='logout'>
+        <x-tabler-logout class="w-5 text-[#aab4d4] text-lg" />
+    </button>
+    </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+    // Initialize GSAP once
+    if (!window.gsapInitialized) {
+        initGsap();
+    }
 
-            InitGsap();
-        });
+    // Use Livewire hook to reapply GSAP after DOM updates due to polling
+    Livewire.hook('message.processed', (message, component) => {
+        console.log('Livewire update detected:', message);
+
+        // Only reinitialize or adjust GSAP if necessary
+        if (message.updateQueue[0]?.payload?.event === 'updateBalance') {
+            console.log('Balance update detected, no need to reinitialize GSAP.');
+            return;
+        }
+
+        // Reapply or refresh GSAP animations if needed
+        // Example: Refresh ScrollTrigger to ensure correct behavior
+        ScrollTrigger.refresh();
+
+        // If necessary, selectively reinitialize parts of your GSAP animations
+        // For example, you could reapply a specific animation:
+        // gsap.to("#header", { opacity: 1, duration: 0.5 });
+    });
+});
+
+function initGsap() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Your GSAP animations here
+
+    window.gsapInitialized = true;
+}
+
     </script>
 </section>

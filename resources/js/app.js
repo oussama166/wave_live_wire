@@ -17,7 +17,7 @@ window.InstanceDatePicker = InstanceDatePicker;
 window.InstanceDate = InstanceDate;
 
 window.initializeChart = initializeChart;
-
+window.gsapInitialized = undefined;
 
 
 // Live Wire listner
@@ -59,6 +59,8 @@ document.addEventListener("livewire:navigated", () => {
     initCalendar();
     InstanceDatePicker();
 });
+
+
 
 Livewire.hook('element.initialized',() => {
     window.Alpine.discoverUninitializedComponents((el) => {

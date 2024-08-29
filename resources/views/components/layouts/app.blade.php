@@ -25,7 +25,6 @@
 
     @include('sweetalert::alert')
 
-
     @livewireScripts
 </body>
 

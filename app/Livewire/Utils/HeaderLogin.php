@@ -3,6 +3,7 @@
 namespace App\Livewire\Utils;
 
 use App\Models\User;
+use Auth;
 use Livewire\Component;
 
 class HeaderLogin extends Component
@@ -13,6 +14,8 @@ class HeaderLogin extends Component
     public $path = '/';
     public $title = 'Dashboard';
 
+     // A property to track if GSAP has been initialized
+     protected $gsapInitialized = false;
     // mount method
     public function mount($name, $balance, $path, $title)
     {
@@ -25,18 +28,33 @@ class HeaderLogin extends Component
     // render method
     public function render()
     {
+        // Here, we check if GSAP has been initialized
+        if (!$this->gsapInitialized) {
+            $this->dispatch('initialize-gsap');
+            $this->gsapInitialized = true;
+        }
         return view('livewire.utils.header-login');
     }
 
 
     public function logout()
     {
-        // logout logic
-        auth()->logout();
+        Auth::logout();
+        session()->invalidate();
+        session()->regenerateToken();
+
+
         $this->dispatch('toast', type : 'success', message : 'Logout successfully!');
-        return redirect("/");
+        $this->redirect('/');
+
+
     }
-    public function updateBalance(){
-        $this->balance = User::find(auth()->id())->balance;
+    public function updateBalance()
+    {
+        if (Auth::check()) {
+            $this->balance = User::find(Auth::id())->balance;
+        } else {
+            $this->balance = 0; // or handle it differently based on your needs
+        }
     }
 }

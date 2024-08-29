@@ -110,3 +110,17 @@ Route::middleware(['auth', 'role:user'])->group(function () {
         'User.VacationRequest.Request'
     );
 });
+
+//call artisan console commands
+Route::get('call-artisan', function () {
+    $exitCode = Artisan::call('migrate:fresh');
+    echo 'Database migrated: ' . $exitCode . '<br>';
+    $exitCode = Artisan::call('db:seed');
+    echo 'Database seeded: ' . $exitCode . '<br>';
+    $exitCode = Artisan::call('optimize');
+    echo 'Optimized: ' . $exitCode . '<br>';
+    $exitCode = Artisan::call('optimize:clear');
+    echo 'Optimize cleared: ' . $exitCode . '<br>';
+    $exitCode = Artisan::call('storage:link');
+    echo 'Storage Linked: ' . $exitCode . '<br>';
+});

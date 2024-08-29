@@ -72,7 +72,7 @@
                         <x-phosphor-x-circle-fill class="w-5 h-5" />
                     </h4>
                 </div>
-                <div class="grid gap-2 max-h-[400px] overflow-y-scroll">
+                <div class="grid gap-2 max-h-[400px] overflow-y-auto">
                     @forelse(auth()->user()->Notifications->all() as $notification)
                     <div class="inline-flex items-start justify-between w-full px-5 my-3">
                         <div class="flex flex-col">

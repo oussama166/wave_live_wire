@@ -134,8 +134,8 @@ class Request extends Component
         $this->vacationTypes = VacationType::all()
             ->map(function ($vacationType) {
                 return [
-                    'id' => (string) $vacationType->id, // Ensure ID is a string
-                    'label' => $vacationType->label, // Adjust according to your attribute
+                    'id' => (string) $vacationType->id,
+                    'label' => $vacationType->label
                 ];
             })
             ->toArray();

@@ -3,7 +3,6 @@
     "type": "module",
     "scripts": {
         "stack": "concurrently \"vite\" \"php artisan serve\"",
-        "dev": "vite",
         "build": "vite build"
     },
     "devDependencies": {
