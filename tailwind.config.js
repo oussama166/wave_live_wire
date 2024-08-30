@@ -19,7 +19,7 @@ export default {
                     primary: "#2b3674",
                     secondary: "#aab4d4",
                     disable: "#707eae",
-                    "primary-hover": "#ffffff",
+                    "primary-hover": "#415fcf",
                     "secondary-hover": "#000000",
                     "primary-active": "#000000",
                     "secondary-active": "#000000",

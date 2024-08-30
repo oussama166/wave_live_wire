@@ -19,17 +19,22 @@
             <form wire:submit='resetPassword' id="reset" class="mb-5 space-y-5">
                 @csrf
                 <x-form-input id="email" name="email" title="Email" placeholder="mail@mail.com" inputType="email"
-                    :isRequire="true" :label-on="true" :error-on="$errors->first('email')" :set-focus="true" :value="old('email')">
+                    :isRequire="true" :label-on="true" :error-on="$errors->first('email')" :set-focus="true"
+                    :value="old('email')">
                     @error('email')
-                        <span class="text-danger-500">{{ $message }}</span>
+                    <span class="text-danger-500">{{ $message }}</span>
                     @enderror
                 </x-form-input>
+                <div class="inline-flex justify-end w-full">
+                    <a href="/" class="text-base underline text-wave-primary hover:text-wave-primary-hover">Back
+                        to
+                        login page</a>
+
+                </div>
 
 
             </form>
-
             <x-form-button type="submit" value="Reset password" form="reset" customClass="w-full max-w-lg" />
-
         </div>
     </section>
 </section>

@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "afatmustafa/blade-hugeicons": "^0.0.3",
         "andreiio/blade-remix-icon": "^3.3",
         "blade-ui-kit/blade-heroicons": "^2.4",
         "codeat3/blade-eos-icons": "^1.14",

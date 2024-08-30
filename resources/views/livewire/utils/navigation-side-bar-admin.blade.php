@@ -50,6 +50,19 @@
 
             </a>
 
+            <a wire:navigate href="/admin/vacationRequest/list" class="z-10">
+                <div class="
+                px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
+                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
+                aria-checked:bg-[#1c5daf] aria-checked:text-white
+
+                " aria-checked="{{ Str::contains($active,'/admin/vacationRequest') ? 'true' : 'false' }}">
+                    <x-hugeicons-investigation class="w-7" />
+                    Investigation
+                </div>
+
+            </a>
+
 
 
 
@@ -57,7 +70,8 @@
                 <li class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
-                aria-checked:bg-[#1c5daf] aria-checked:text-white  " aria-checked="{{Str::contains($active,"/admin/settings") ? 'true' : 'false' }}">
+                aria-checked:bg-[#1c5daf] aria-checked:text-white  " aria-checked="{{Str::contains($active,"
+                    /admin/settings") ? 'true' : 'false' }}">
 
                     <x-letsicon-setting-line class="w-7" />
                     Settings
