@@ -7,12 +7,13 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Models\Holiday as ModelsHoliday;
-
+use Illuminate\Support\Facades\Log;
 
 class Holiday extends Component
 {
-
     protected $listeners = [
+        'changeDataHoliday' => 'changeDataHoliday',
+        'deleteDataHoliday' => 'deleteDataHoliday',
         'handleTimeChange' => 'handleTimeChange',
     ];
 
@@ -21,7 +22,6 @@ class Holiday extends Component
     public $dateHoliday;
     public $holidayDayNumber = 1;
     public bool $isReligious = false;
-
 
     public $Holidays;
 
@@ -34,47 +34,46 @@ class Holiday extends Component
 
     public function getHolidaysList()
     {
-        $currentYear = date('Y')+1;
+        $currentYear = date('Y');
         $this->Holidays = ModelsHoliday::query()
             ->whereYear('date', $currentYear)
-            ->orWhere("status","like","religious")
-            ->orderBy('date','asc')
+            ->orWhere('status', 'like', 'religious')
+            ->orderBy('date', 'asc')
             ->get()
             ->map(function ($holi) {
                 return [
-                    "id" => $holi->id,
-                    "name" => $holi->name,
-                    "date" => (new \DateTime($holi->date))->format('d M'),
-                    "status" => $holi->status,
+                    'id' => $holi->id,
+                    'name' => $holi->name,
+                    'date' => (new \DateTime($holi->date))->format('d M'),
+                    'status' => $holi->status,
                 ];
             });
     }
 
     public function updateHoliday()
     {
-
         if ($this->id != -1) {
-            ModelsHoliday::query()->where("id",$this->id)->update([
-                "name" => $this->holidayName,
-                "date" => $this->dateHoliday,
-                "days_number" => $this->holidayDayNumber,
-                "status" => ($this->isReligious) ? 'religious' : 'national'
-            ]);
+            ModelsHoliday::query()
+                ->where('id', $this->id)
+                ->update([
+                    'name' => $this->holidayName,
+                    'date' => $this->dateHoliday,
+                    'days_number' => $this->holidayDayNumber,
+                    'status' => $this->isReligious ? 'religious' : 'national',
+                ]);
         } else {
             ModelsHoliday::query()->create([
-                "name" => $this->holidayName,
-                "date" => $this->dateHoliday,
-                "days_number" => $this->holidayDayNumber,
-                "status" => ($this->isReligious) ? 'religious' : 'national'
+                'name' => $this->holidayName,
+                'date' => $this->dateHoliday,
+                'days_number' => $this->holidayDayNumber,
+                'status' => $this->isReligious ? 'religious' : 'national',
             ]);
         }
         $this->reset();
-
     }
 
-
-    #[On('changeData')]
-    public function changeData($id): void
+    #[On('changeDataHoliday')]
+    public function changeDataHoliday($id): void
     {
         $holidayData = ModelsHoliday::query()->find($id);
         $this->id = $holidayData->id;
@@ -85,18 +84,16 @@ class Holiday extends Component
         $this->needUpdate = true;
     }
 
-    #[On('deleteData')]
-    public function deleteData($id): void
+    #[On('deleteDataHoliday')]
+    public function deleteDataHoliday($id): void
     {
         $contractData = ModelsHoliday::query()->find($id);
         $contractData->delete();
     }
-
 
     #[On('handleTimeChange')]
     public function handleTimeChange($model, $value): void
     {
         $this->{$model} = $value;
     }
-
 }

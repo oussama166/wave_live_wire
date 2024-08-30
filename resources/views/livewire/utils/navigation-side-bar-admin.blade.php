@@ -5,9 +5,8 @@
     <div id="logo" class="w-full max-h-[100px] h-full flex items-center justify-center">
         <img src="{{ url('/assets/wave.svg') }}" alt="logo of wave" class="w-1/2" />
     </div>
-    {{-- header < --}}
-    <div class="w-full h-full overflow-hidden">
-        <ul class="flex flex-col w-full divide-y-2 divide-gray-100 overflow-hidden">
+    {{-- header < --}} <div class="w-full h-full overflow-hidden">
+        <ul class="flex flex-col w-full overflow-hidden divide-y-2 divide-gray-100">
             <a wire:navigate href="/admin/dashboard">
                 <li class="px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4] hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer aria-checked:bg-[#1c5daf] aria-checked:text-white"
                     aria-checked="{{ $active == '/admin/dashboard' ? 'true' : 'false' }}">
@@ -54,12 +53,11 @@
 
 
 
-            <a wire:navigate href="/admin/settings/ContractType">
+            <a href="/admin/settings/ContractType">
                 <li class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
-                aria-checked:bg-[#1c5daf] aria-checked:text-white
-                " aria-checked="{{Str::contains($active,"/settings")  ? 'true' : 'false' }}">
+                aria-checked:bg-[#1c5daf] aria-checked:text-white  " aria-checked="{{Str::contains($active,"/admin/settings") ? 'true' : 'false' }}">
 
                     <x-letsicon-setting-line class="w-7" />
                     Settings
@@ -67,74 +65,58 @@
             </a>
 
             {{-- Sub menue --}}
-            <a wire:navigate href="/admin/settings/ContractType" id="item" class="z-0 hidden">
+            <a href="/admin/settings/ContractType" id="item" class="z-0 hidden">
                 <li class="
                 w-full  px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/admin/settings/ContractType' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/ContractType' ? 'true' : 'false' }}">
                     Contracts Types
                 </li>
             </a>
-            <a wire:navigate href="/admin/settings/holidays" id="item" class="z-0 hidden overflow-hidden">
+            <a href="/admin/settings/holidays" id="item" class="z-0 hidden overflow-hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/admin/settings/holidays' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/holidays' ? 'true' : 'false' }}">
                     Holidays
                 </li>
             </a>
-            <a wire:navigate href="/admin/settings/familyStatus" id="item" class="z-0 hidden">
+            <a href="/admin/settings/familyStatus" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/admin/settings/familyStatus' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/familyStatus' ? 'true' : 'false' }}">
                     Family Status
                 </li>
             </a>
-            <a wire:navigate href="/admin/settings/experienceLevels" id="item" class="z-0 hidden">
+            <a href="/admin/settings/experienceLevels" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/admin/settings/experienceLevels' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/experienceLevels' ? 'true' : 'false' }}">
                     Experience Levels
                 </li>
             </a>
 
-            <a wire:navigate href="/vacationRequest/request" id="item" class="z-0 hidden">
+            <a href="/admin/settings/positionTypes" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/vacationRequest/request' ? 'true' : 'false' }}">
-                    Nationality
-                </li>
-            </a>
-            <a wire:navigate href="/admin/settings/positionTypes" id="item" class="z-0 hidden">
-                <li class="
-                w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
-                hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
-                aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/admin/settings/positionTypes' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/positionTypes' ? 'true' : 'false' }}">
                     Position Type
                 </li>
             </a>
-            <a wire:navigate href="/admin/settings/vacationTypes" id="item" class="z-0 hidden overflow-hidden">
+            <a href="/admin/settings/vacationTypes" id="item" class="z-0 hidden overflow-hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                "
-                    aria-checked="{{ $active === '/admin/settings/vacationTypes' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/vacationTypes' ? 'true' : 'false' }}">
                     Vacation Type
                 </li>
             </a>

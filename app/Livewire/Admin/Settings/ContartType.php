@@ -12,8 +12,8 @@ class ContartType extends Component
 {
 
     protected $listeners = [
-        "changeData" => "changeData",
-        "deleteData" => "deleteData",
+        "changeDataContract" => "changeDataContract",
+        "deleteDataContract" => "deleteDataContract",
     ];
     public $contracts;
 
@@ -44,15 +44,15 @@ class ContartType extends Component
         });
     }
 
-    #[On('changeData')]
-    public function changeData($id): void
+    #[On('changeDataContract')]
+    public function changeDataContract($id): void
     {
         $contractData = Contracts::query()->find($id);
         $this->label = $contractData->label;
         $this->description = $contractData->description;
     }
-    #[On('deleteData')]
-    public function deleteData($id): void
+    #[On('deleteDataContract')]
+    public function deleteDataContract($id): void
     {
 
         $contractData = Contracts::query()->find($id);

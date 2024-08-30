@@ -1,4 +1,4 @@
-<section class="w-full overflow-hidden">
+<section class="w-full overflow-x-hidden">
     {{-- Start Search section --}}
     @if ($this->searchOn != false)
     <div class="flex items-center justify-between gap-5 my-5">
@@ -14,7 +14,7 @@
     </div>
     @endif
     {{-- End Search section --}}
-    <table class="min-w-full overflow-hidden divide-y divide-neutral-200">
+    <table class="min-w-full overflow-x-hidden divide-y divide-neutral-200">
         <thead>
             <tr class="text-neutral-500">
                 @foreach ($headers as $header)
@@ -141,7 +141,7 @@
         </tbody>
 
         <tfoot>
-            <tr>
+            <tr class="text-center">
                 <td wire:loading colspan="6" wire:loading.class="text-center">Loading...</td>
 
             </tr>

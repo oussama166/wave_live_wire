@@ -11,7 +11,7 @@
         @endif
         <input type="search" placeholder="search the user by name or lastname or email" x-model="query"
             wire:model.live.debounce.250ms="query" @focus="isFocused = query.length > 0"
-            @input="isFocused = query.length > 3"
+            @input="isFocused = query.length >= 3"
             class="relative block w-full px-4 py-3 text-sm bg-gray-100 border rounded-lg peer border-black/30 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" />
         <div x-show="isFocused"
             class="max-w-lg w-full max-h-[400px] overflow-y-auto absolute rounded-t-none rounded-b-xl translate-y-1 bg-white divide-y-2 divide-wave-secondary/50 z-[100]">

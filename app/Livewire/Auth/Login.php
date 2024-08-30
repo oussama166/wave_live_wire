@@ -52,17 +52,22 @@ class Login extends Component
                 return $this->redirect("/user-dashboard");
             }
         }
-
+        if(Auth::user()->enable_status === 0){
+            $this->dispatch('alert',
+            type:"warning",
+            title : "Impossible to connect",
+            text : "Your account is disabled",
+            position:"center"
+        );
+        } else {
         $this->dispatch('alert',
         type:"warning",
         title : "Impossible to connect",
         text : "Your email or password is incorrect",
         position:"center"
     );
-        // Redirect back with an error message
-        return back()->withErrors([
-            'credentials' => 'The provided credentials do not match our records.',
-        ]);
+}
+
     }
 
     #[Title('Login')]

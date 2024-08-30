@@ -12,8 +12,8 @@ class ExperienceLevels extends Component
 {
 
     protected $listeners = [
-        "changeData" => "changeData",
-        "deleteData" => "deleteData",
+        "changeDataExperience" => "changeDataExperience",
+        "deleteDataExperience" => "deleteDataExperience",
     ];
     public $experienceLevels;
 
@@ -42,8 +42,8 @@ class ExperienceLevels extends Component
         });
     }
 
-    #[On('changeData')]
-    public function changeData($id): void
+    #[On('changeDataExperience')]
+    public function changeDataExperience($id): void
     {
         $experienceLevelData = ModelsExperienceLevels::query()->find($id);
         $this->updateId = $id;
@@ -51,8 +51,8 @@ class ExperienceLevels extends Component
         $this->description = $experienceLevelData->description;
     }
 
-    #[On('deleteData')]
-    public function deleteData($id): void
+    #[On('deleteDataExperience')]
+    public function deleteDataExperience($id): void
     {
 
         $experienceLevelData = ModelsExperienceLevels::query()->find($id);

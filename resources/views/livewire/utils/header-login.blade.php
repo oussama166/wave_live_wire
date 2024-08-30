@@ -35,28 +35,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
     // Initialize GSAP once
-    if (!window.gsapInitialized) {
+
         initGsap();
-    }
 
-    // Use Livewire hook to reapply GSAP after DOM updates due to polling
-    Livewire.hook('message.processed', (message, component) => {
-        console.log('Livewire update detected:', message);
-
-        // Only reinitialize or adjust GSAP if necessary
-        if (message.updateQueue[0]?.payload?.event === 'updateBalance') {
-            console.log('Balance update detected, no need to reinitialize GSAP.');
-            return;
-        }
-
-        // Reapply or refresh GSAP animations if needed
-        // Example: Refresh ScrollTrigger to ensure correct behavior
-        ScrollTrigger.refresh();
-
-        // If necessary, selectively reinitialize parts of your GSAP animations
-        // For example, you could reapply a specific animation:
-        // gsap.to("#header", { opacity: 1, duration: 0.5 });
-    });
 });
 
 function initGsap() {
