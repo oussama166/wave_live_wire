@@ -97,7 +97,8 @@ class CongeInfo extends Notification
      * @return array<string, mixed>
      */
     public function toArray(object $notifiable): array
-    {$statusMessage = '';
+    {
+        $statusMessage = '';
 
         if ($this->type == "Pending") {
             $statusMessage = 'Your vacation request is pending approval.';

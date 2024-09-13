@@ -19,6 +19,18 @@ window.InstanceDate = InstanceDate;
 window.initializeChart = initializeChart;
 window.gsapInitialized = undefined;
 
+window.addEventListener('beforeunload', function () {
+    const loader = this.document.querySelector('#loader');
+    loader.classList.remove('hidden');
+    loader.classList.add('flex');
+    window.scrollTo(0,0);
+    document.body.classList.add('overflow-hidden');
+    document.body.classList.add('pointer-events-none');
+});
+
+
+
+
 
 // Live Wire listner
 document.addEventListener("livewire:init", () => {
@@ -53,11 +65,14 @@ document.addEventListener("livewire:init", () => {
 });
 
 
+
 // Handling the navigated event
+
 document.addEventListener("livewire:navigated", () => {
     initGsap();
     initCalendar();
     InstanceDatePicker();
+
 });
 
 

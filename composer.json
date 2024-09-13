@@ -20,6 +20,7 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "maatwebsite/excel": "^3.1",
         "mansoor/blade-lets-icons": "^1.0",
         "owenvoke/blade-fontawesome": "^2.6",
         "pusher/pusher-php-server": "^7.2",

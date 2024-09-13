@@ -1,6 +1,16 @@
 <div class="content">
     <section class="w-full p-5 space-y-4 bg-white rounded-lg font-Mulish">
-        <div class="inline-flex items-center justify-end w-full">
+        <div class="inline-flex items-center justify-end w-full gap-5">
+            {{-- Add users from xlsx file --}}
+            <form action="/admin/export/users" method="POST" class="max-w-[300px] w-full">
+                @csrf
+                @method('POST')
+                <x-form-button type='submit' value="Download Users list XLSX"
+                    custom-class="max-w-[300px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out" />
+            </form>
+            <x-form-button tag='link' value="Upload from XLSX"
+                custom-class="max-w-[200px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out"
+                href="/admin/users/upload" />
             {{-- Add new User button --}}
             <x-form-button tag='link' value="Add User"
                 custom-class="max-w-[200px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out"

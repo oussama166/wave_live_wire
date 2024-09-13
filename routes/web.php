@@ -1,5 +1,8 @@
 <?php
 
+use App\Exports\ExportExcel;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExportController;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\Profile as AdminProfile;
 use App\Livewire\Admin\Profiles as AdminProfiles;
@@ -25,6 +28,7 @@ use App\Livewire\User\Settings;
 use App\Livewire\User\VacationRequest\Request;
 use App\Livewire\User\VacationRequest\VacationsList;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 // THIS IS THE ROUTES FOR THE AUTHENTICATION PAGES IS ACCESSIBLE FOR GUEST WITHOUT AUTHENTICATION
 Route::middleware(['layout-guest', 'guest'])->group(function () {
@@ -56,6 +60,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/users/create', AdminAddUser::class)->name(
         'Admin.create'
     );
+    Route::get('/admin/users/add/upload')->name('Admin.add.upload');
     Route::get('/admin/users/edit/{id}', AdminEditUser::class)->name(
         'Admin.edit'
     );
@@ -95,6 +100,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/settings/vacationTypes',
         AdminSettingsVacationTypes::class
     )->name('Admin.Settings.VacationTypes');
+    Route::post('/admin/export/users', [
+        ExportController::class,
+        'ExportUsers',
+    ]);
+    Route::post('/logout', [AuthController::class, 'Logout'])->name(
+        'Auth.Logout'
+    );
 });
 
 // THIS IS THE ROUTES FOR THE AUTHENTICATION PAGES IS ACCESSIBLE FOR GUEST WITH AUTHENTICATION WITH THE ROLE USER
@@ -108,6 +120,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     );
     Route::get('/vacationRequest/request', Request::class)->name(
         'User.VacationRequest.Request'
+    );
+    Route::post('/logout', [AuthController::class, 'Logout'])->name(
+        'Auth.Logout'
     );
 });
 

@@ -17,6 +17,11 @@ class Dashboard extends Component
     public $dataSet;
     public $dataSetNextHolidays;
 
+    public function initializeComponent()
+    {
+        $this->dispatch('componentIsActive', 'Chart');
+    }
+
     public function mount()
     {
         $this->dataSet = $this->getEmployeeDataByAvgSalary();

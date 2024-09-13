@@ -22,6 +22,14 @@
 </head>
 
 <body class="font-sans bg-blue-50 dark:bg-black dark:text-white/50">
+    <div id="loader"
+        class="fixed inset-0 z-[10000] items-center justify-center hidden bg-black/60 pointer-events-none cursor-wait">
+        <h1 class="text-4xl font-semibold text-wave-primary">Loading
+            <span class="animate-bounce">.</span>
+            <span class="delay-75 animate-bounce">.</span>
+            <span class="delay-100 animate-bounce">.</span>
+        </h1>
+    </div>
     <section class="grid w-full grid-cols-5 grid-rows-5 gap-x-10 gap-y-10 bg-wave-primary-bg ">
         <div class="row-span-5">
             {{-- Check the role of user to redirected to the appropriate side navigation --}}

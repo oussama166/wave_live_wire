@@ -7,14 +7,14 @@
     </div>
     {{-- header < --}} <div class="w-full h-full overflow-hidden">
         <ul class="flex flex-col w-full overflow-hidden divide-y-2 divide-gray-100">
-            <a wire:navigate href="/admin/dashboard">
+            <a href="/admin/dashboard">
                 <li class="px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4] hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer aria-checked:bg-[#1c5daf] aria-checked:text-white"
                     aria-checked="{{ $active == '/admin/dashboard' ? 'true' : 'false' }}">
                     <x-ri-dashboard-line class="w-7" />
                     Dashboard
                 </li>
             </a>
-            <a wire:navigate href="/admin/profile">
+            <a href="/admin/profile">
                 <li class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
@@ -24,7 +24,7 @@
                     Profile
                 </li>
             </a>
-            <a wire:navigate href="/admin/users">
+            <a href="/admin/users">
                 <li class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
@@ -36,7 +36,7 @@
                 </li>
             </a>
 
-            <a wire:navigate href="/admin/vacationRequest/list" class="z-10">
+            <a href="/admin/vacationRequest/list" class="z-10">
                 <div class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
@@ -50,7 +50,7 @@
 
             </a>
 
-            <a wire:navigate href="/admin/vacationRequest/list" class="z-10">
+            <a href="/admin/vacationRequest/list" class="z-10">
                 <div class="
                 px-5 py-3 flex gap-2 items-center justify-start text-xl text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
@@ -116,12 +116,12 @@
                 </li>
             </a>
 
-            <a href="/admin/settings/positionTypes" id="item" class="z-0 hidden">
+            <a href="/admin/settings/investagtion" id="item" class="z-0 hidden">
                 <li class="
                 w-full px-5 py-2 flex gap-2 items-center justify-start text-base text-[#aab4d4]
                 hover:bg-[#1c5daf] hover:text-white transition-colors ease-in cursor-pointer
                 aria-checked:bg-primary-300 aria-checked:text-white
-                " aria-checked="{{ $active === '/admin/settings/positionTypes' ? 'true' : 'false' }}">
+                " aria-checked="{{ $active === '/admin/settings/investagtion' ? 'true' : 'false' }}">
                     Position Type
                 </li>
             </a>
@@ -146,7 +146,7 @@
             window.location.pathname.includes('/settings') ? dropGsap(drop, "#item") : null;
         });
 
-        document.addEventListener("livewire:navigated", () => {
+        document.addEventListener("lived", () => {
             const drop = {{ Str::contains($active, '/settings') ? 'true' : 'false' }};
             window.location.pathname.includes('/settings') ? dropGsap(drop, "#item") : null;
         });

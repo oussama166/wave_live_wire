@@ -26,19 +26,22 @@
     </div>
 
 
-    <button type="submit" class="flex items-center justify-center p-3 bg-white rounded-full cursor-pointer"
-        wire:click='logout'>
-        <x-tabler-logout class="w-5 text-[#aab4d4] text-lg" />
-    </button>
+    <form action="{{ route('Auth.Logout') }}" method="post">
+        @csrf
+        @method('POST')
+        <button type="submit" class="flex items-center justify-center p-3 bg-white rounded-full cursor-pointer">
+            <x-tabler-logout class="w-5 text-[#aab4d4] text-lg" />
+        </button>
+    </form>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-    // Initialize GSAP once
+            // Initialize GSAP once
 
-        initGsap();
+            initGsap();
 
-});
+        });
 
 function initGsap() {
     gsap.registerPlugin(ScrollTrigger);

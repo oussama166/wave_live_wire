@@ -28,7 +28,7 @@ class UserCreated extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -38,20 +38,22 @@ class UserCreated extends Notification
     {
         // the subject of the email is notifing the user that the account is ready to use into our application and give him the email and password
         $subject = 'Account Created';
-        $introduction = 'Your account has been successfully created and is now ready to use.';
-        $email = 'Email: ' . $this->user->email ;
+        $introduction =
+            'Your account has been successfully created and is now ready to use.';
+        $email = 'Email: ' . $this->user->email;
         $password = 'Password: password12345';
-        $actionUrl = url('http://localhost:8000' .'/');
+        $actionUrl = url('http://localhost:8000' . '/');
         $thankYouMessage = 'Thank you for using our application!';
-        return (new MailMessage)
+        return (new MailMessage())
             ->subject($subject)
             ->line($introduction)
             ->line($email)
             ->line($password)
-            ->line('You can now login to your account and start using our application.')
+            ->line(
+                'You can now login to your account and start using our application.'
+            )
             ->action('Login', $actionUrl)
             ->line($thankYouMessage);
-
     }
 
     /**
@@ -62,7 +64,11 @@ class UserCreated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'typeTrans' => 'User created',
+            'status' => 'Creating account',
+            'message' =>
+                'Your account has been successfully created and is now ready to use.',
+            'userId' => $notifiable->id, // Assuming the notifiable is a user
         ];
     }
 }
