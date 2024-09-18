@@ -21,11 +21,10 @@ class ExportController extends Controller
     {
         // validate the request pramaeters and check if the file upload has valid extension
         $request->validate([
-            'file' => 'required|mimes:xlsx,xls',
+            'file_input' => 'required|mimes:xlsx,xls',
         ]);
-
         // import the file
-        Excel::import(new ImportExcel(), $request->file('file'));
+        Excel::import(new ImportExcel(), $request->file('file_input'));
 
         return back()->with('success', 'Users imported successfully.');
     }

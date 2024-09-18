@@ -111,7 +111,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/admin/import/users', [
         ExportController::class,
         'ImportUsers',
-    ]);
+    ])->name('Admin.ImportUsers');
 
     // this for logout from the account
     Route::post('/logout', [AuthController::class, 'Logout'])->name(
