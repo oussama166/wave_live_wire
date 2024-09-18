@@ -29,6 +29,8 @@ export function initCalendar(elementId, options = {}, events = [{}],holidays = [
 
     const defaultOptions = {
         defaultView: "month",
+        useFormPopup: true,
+        useDetailPopup: true,
         calendars: MOCK_CALENDARS,
         theme: {
             week: {

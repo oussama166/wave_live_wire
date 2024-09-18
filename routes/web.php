@@ -100,10 +100,20 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         '/admin/settings/vacationTypes',
         AdminSettingsVacationTypes::class
     )->name('Admin.Settings.VacationTypes');
+
+    // Import and export route
+    // This for export data
     Route::post('/admin/export/users', [
         ExportController::class,
         'ExportUsers',
     ]);
+    // This for import data to database
+    Route::post('/admin/import/users', [
+        ExportController::class,
+        'ImportUsers',
+    ]);
+
+    // this for logout from the account
     Route::post('/logout', [AuthController::class, 'Logout'])->name(
         'Auth.Logout'
     );

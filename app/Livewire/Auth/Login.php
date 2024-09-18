@@ -19,7 +19,6 @@ class Login extends Component
 
     public function connect(Request $request)
     {
-
         $this->validate();
         $credentials = [
             'email' => $this->email,
@@ -27,47 +26,51 @@ class Login extends Component
         ];
         //
         // Attempt to authenticate the user with the provided credentials
-        if (auth()->attempt($credentials) && Auth::user()->enable_status !== 0)
-        {
+        if (auth()->attempt($credentials)) {
+            // Check if the user account is disabled
+            if (Auth::user()->enable_status === 0) {
+                $this->dispatch('alert',
+                    type : 'warning',
+                    title : 'Impossible to connect',
+                    text : 'Your account is disabled',
+                    position : 'center',
+                );
+                return;
+            }
+
             // Regenerate the session to prevent session fixation attacks
             $request->session()->regenerate();
 
             // Check if two-factor authentication is enabled and required
-            if (Features::enabled(Features::twoFactorAuthentication()) &&
-                Auth::user()->two_factor_secret) {
-                // Handle the 2FA process
+            if (
+                Features::enabled(Features::twoFactorAuthentication()) &&
+                Auth::user()->two_factor_secret
+            ) {
                 return redirect()->route('two-factor.login');
             }
 
-            $this->dispatch
-            ('alert',
-            type:"success",
-            title : "Your are connected",
-            position:"center"
+            // Dispatch success alert for successful login
+            $this->dispatch('alert',
+                type : 'success',
+                title : 'You are connected',
+                position : 'center',
             );
 
+            // Redirect based on user role
             if (Auth::user()->role === 'admin') {
-                return $this->redirect("/admin/dashboard");
+                return redirect('/admin/dashboard');
             } else {
-                return $this->redirect("/user-dashboard");
+                return redirect('/user-dashboard');
             }
-        }
-        if(Auth::user()->enable_status === 0){
-            $this->dispatch('alert',
-            type:"warning",
-            title : "Impossible to connect",
-            text : "Your account is disabled",
-            position:"center"
-        );
         } else {
-        $this->dispatch('alert',
-        type:"warning",
-        title : "Impossible to connect",
-        text : "Your email or password is incorrect",
-        position:"center"
-    );
-}
-
+            // Handle authentication failure
+            $this->dispatch('alert',
+                type : 'warning',
+                title : 'Impossible to connect',
+                text : 'Your email or password is incorrect',
+                position : 'center',
+            );
+        }
     }
 
     #[Title('Login')]

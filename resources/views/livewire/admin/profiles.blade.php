@@ -8,9 +8,11 @@
                 <x-form-button type='submit' value="Download Users list XLSX"
                     custom-class="max-w-[300px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out" />
             </form>
+
             <x-form-button tag='link' value="Upload from XLSX"
                 custom-class="max-w-[200px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out"
                 href="/admin/users/upload" />
+
             {{-- Add new User button --}}
             <x-form-button tag='link' value="Add User"
                 custom-class="max-w-[200px] w-full  bg-primary-400 cursor-pointer  hover:bg-transparent hover:border-primary-500 hover:text-primary-500 transition-colors ease-in-out"
